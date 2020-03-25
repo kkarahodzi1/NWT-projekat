@@ -10,6 +10,7 @@ public class Tipovi {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+    @Column(unique=true)
     private String naziv;
     private Float cijena;
 
