@@ -51,7 +51,10 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1584647218640</updated>
-      <workItem from="1584647221842" duration="4135000" />
+      <workItem from="1584647221842" duration="4300000" />
+      <workItem from="1585155612844" duration="620000" />
+      <workItem from="1585225592963" duration="1881000" />
+      <workItem from="1585249672340" duration="949000" />
     </task>
     <servers />
   </component>
@@ -59,10 +62,16 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="446" y="25" key="#com.intellij.ide.util.MemberChooser" timestamp="1584650124820">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="2589" y="-235" key="#com.intellij.ide.util.MemberChooser" timestamp="1585225744456">
+      <screen x="1920" y="-273" width="1920" height="1040" />
     </state>
+    <state x="2589" y="-235" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680/1920.-273.1920.1040@1920.-273.1920.1040" timestamp="1585225744456" />
     <state x="446" y="25" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1584650124820" />
+    <state x="2426" y="-21" key="com.intellij.ide.util.TipDialog" timestamp="1585225598469">
+      <screen x="1920" y="-273" width="1920" height="1040" />
+    </state>
+    <state x="2426" y="-21" key="com.intellij.ide.util.TipDialog/0.0.1280.680/1920.-273.1920.1040@1920.-273.1920.1040" timestamp="1585225598469" />
+    <state x="337" y="165" key="com.intellij.ide.util.TipDialog/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1585155613951" />
     <state x="91" y="43" key="new project wizard" timestamp="1584650355504">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
