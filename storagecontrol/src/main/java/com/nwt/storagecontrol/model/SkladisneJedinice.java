@@ -2,6 +2,7 @@ package com.nwt.storagecontrol.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.Date;
 
 @Entity
@@ -10,8 +11,10 @@ public class SkladisneJedinice {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+
     @Column(unique=true)
     @NotNull
+    @Positive
     private Integer broj;
 
     @ManyToOne(optional=false)

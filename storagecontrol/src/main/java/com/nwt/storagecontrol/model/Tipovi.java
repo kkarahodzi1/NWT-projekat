@@ -2,7 +2,9 @@ package com.nwt.storagecontrol.model;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.Date;
 import java.util.List;
 
@@ -11,11 +13,14 @@ public class Tipovi {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+
     @Column(unique=true)
     @NotNull
+    @NotEmpty
     private String naziv;
 
     @NotNull
+    @Positive
     private Float cijena;
 
     protected Tipovi(){
