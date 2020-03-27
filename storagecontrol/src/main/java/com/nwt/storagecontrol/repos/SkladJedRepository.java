@@ -12,6 +12,4 @@ public interface SkladJedRepository extends CrudRepository<SkladisneJedinice, Lo
     SkladisneJedinice findByBroj(Integer broj);
     List<SkladisneJedinice> findBySkladiste(Skladiste skladiste);
     List<SkladisneJedinice> findByTip(Tipovi tip);
-
-    SkladisneJedinice findById(long id);
 }

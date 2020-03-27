@@ -33,6 +33,7 @@ public class SkladisneJedinice {
         this.tip = tip;
         this.obrisan = Boolean.FALSE;
         this.datumKreiranja = new Date();
+        this.datumModificiranja = new Date();
     }
 
 
@@ -53,6 +54,14 @@ public class SkladisneJedinice {
 
     public void setSkladiste(Skladiste skladiste) {
         this.skladiste = skladiste;
+    }
+
+    public Tipovi getTip() {
+        return tip;
+    }
+
+    public void setTip(Tipovi tip) {
+        this.tip = tip;
     }
 
     public Integer getBroj() {

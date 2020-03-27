@@ -7,7 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface SkladisteRepository extends CrudRepository<Skladiste, Long> {
 
-    List<Skladiste> findByAdresa(String adresa);
-
-    Skladiste findById(long id);
+   Skladiste findByAdresa(String adresa);
 }

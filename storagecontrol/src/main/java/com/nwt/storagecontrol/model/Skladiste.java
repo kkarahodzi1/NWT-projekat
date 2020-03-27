@@ -28,6 +28,8 @@ public class Skladiste {
         this.brojJedinica = brojJedinica;
         this.obrisan = Boolean.FALSE;
         this.datumKreiranja = new Date();
+        this.datumModificiranja = new Date();
+        this.datumBrisanja = null;
     }
 
 

@@ -25,7 +25,6 @@ public class StoragecontrolApplication {
     @Bean
     public CommandLineRunner demo(SkladisteRepository repository, SkladJedRepository repository2, TipoviRepository repository3) {
         return (args) -> {
-            // save a few customers
             repository.save(new Skladiste("Prva avenija 1", 50));
             repository.save(new Skladiste("Druga avenija 2", 70));
             repository.save(new Skladiste("Treca avenija 1", 25));
@@ -35,8 +34,8 @@ public class StoragecontrolApplication {
             repository3.save(new Tipovi("Malo", 90f));
             repository3.save(new Tipovi("Deluxe", 300f));
 
-            Skladiste skladiste1 = repository.findById(1);
-            Skladiste skladiste2 = repository.findById(2);
+            Skladiste skladiste1 = repository.findById(1L).get();
+            Skladiste skladiste2 = repository.findById(2L).get();
             Tipovi tip1 = repository3.findByNaziv("Veliko");
             Tipovi tip2 = repository3.findByNaziv("Malo");
 
@@ -51,7 +50,7 @@ public class StoragecontrolApplication {
             }
             log.info("");
 
-            Skladiste skladiste = repository.findById(1L);
+            Skladiste skladiste = repository.findById(1L).get();
             log.info("Skladiste poradjeno sa findById(1L):");
             log.info("--------------------------------");
             log.info(skladiste.toString());
@@ -59,9 +58,7 @@ public class StoragecontrolApplication {
 
             log.info("Skladiste poradjeno sa  findByAdresa('Druga avenija 2'):");
             log.info("--------------------------------------------");
-            repository.findByAdresa("Druga avenija 2").forEach(druga -> {
-                log.info(druga.toString());
-            });
+            log.info(repository.findByAdresa("Druga avenija 2").toString());
             log.info("");
 
 

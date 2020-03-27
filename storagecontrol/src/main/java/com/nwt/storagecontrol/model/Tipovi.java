@@ -12,6 +12,7 @@ public class Tipovi {
     private Long id;
     @Column(unique=true)
     private String naziv;
+
     private Float cijena;
 
     protected Tipovi(){
