@@ -38,7 +38,7 @@ public class SkladJedController
     SkladisteRepository skladisteRepository;
 
     @GetMapping("/skladjed")
-    public ResponseEntity<List<SkladisneJedinice>> getAllSkladJedinice(@RequestParam(required = false) Skladiste skladiste, Integer broj) //id skladista
+    public ResponseEntity<List<SkladisneJedinice>> getAllSkladJedinice(@RequestParam(required = false) Skladiste skladiste, Integer broj, Tipovi tip) //id skladista
     {
         try {
             List<SkladisneJedinice> skladisneJedinice = new ArrayList<SkladisneJedinice>();
@@ -72,13 +72,13 @@ public class SkladJedController
 
 
     @PostMapping("/skladjed")
-    public ResponseEntity<String> createSkladJedinice(@RequestParam Skladiste skladiste,@RequestParam Tipovi tip , Integer broj) {
+    public ResponseEntity<SkladisneJedinice> createSkladJedinice(@RequestParam Skladiste skladiste,@RequestParam Tipovi tip , Integer broj) {
         try {
             SkladisneJedinice _skladjed = skladJedRepository
                     .save(new SkladisneJedinice(broj,skladiste,tip));
-            return new ResponseEntity<>(_skladjed.toString(), HttpStatus.CREATED);
+            return new ResponseEntity<>(_skladjed, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
+            return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
         }
     }
 

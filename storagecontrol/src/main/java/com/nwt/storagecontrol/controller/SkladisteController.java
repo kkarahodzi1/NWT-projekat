@@ -86,6 +86,48 @@ public class SkladisteController
         }
     }
 
+    @PutMapping("/skladista/obrisi/{id}")
+    public ResponseEntity<Skladiste> obrisiSkladiste(@PathVariable("id") long id) {
+        Optional<Skladiste> skladisteData = skladisteRepository.findById(id);
+
+        if (skladisteData.isPresent()) {
+            Skladiste _skladiste = skladisteData.get();
+            if(!_skladiste.getObrisan())
+            {
+                _skladiste.setDatumBrisanja(new Date());
+                _skladiste.setObrisan(Boolean.TRUE);
+                _skladiste.setDatumModificiranja(new Date());
+                return new ResponseEntity<>(skladisteRepository.save(_skladiste), HttpStatus.OK);
+            }
+            else
+            {
+                return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/skladista/vrati/{id}")
+    public ResponseEntity<Skladiste> vratiSkladiste(@PathVariable("id") long id) {
+        Optional<Skladiste> skladisteData = skladisteRepository.findById(id);
+
+        if (skladisteData.isPresent()) {
+            Skladiste _skladiste = skladisteData.get();
+            if(_skladiste.getObrisan())
+            {
+                _skladiste.setObrisan(Boolean.FALSE);
+                _skladiste.setDatumModificiranja(new Date());
+                return new ResponseEntity<>(skladisteRepository.save(_skladiste), HttpStatus.OK);
+            }
+            else
+            {
+                return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
     @DeleteMapping("/skladista/{id}")
     public ResponseEntity<HttpStatus> deleteSkladiste(@PathVariable("id") long id) {

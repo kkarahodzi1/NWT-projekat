@@ -1,6 +1,7 @@
 package com.nwt.storagecontrol.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -10,17 +11,22 @@ public class SkladisneJedinice {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     @Column(unique=true)
+    @NotNull
     private Integer broj;
 
     @ManyToOne(optional=false)
+    @NotNull
     private Skladiste skladiste;
 
     @ManyToOne(optional=false)
+    @NotNull
     private Tipovi tip;
 
+    @NotNull
     private Date datumKreiranja;
     private Date datumModificiranja;
     private Date datumBrisanja;
+    @NotNull
     private Boolean obrisan;
 
     protected SkladisneJedinice(){
