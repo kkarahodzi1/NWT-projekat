@@ -64,7 +64,8 @@ public class UserController {
     // Da exception ne vrati http error 500 nego 400
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e) {
+    ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e)
+    {
         return new ResponseEntity<>("not valid due to validation error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
