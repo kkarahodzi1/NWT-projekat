@@ -1,7 +1,9 @@
 package com.nwt.billings.controller;
 
+import com.nwt.billings.helper.ValidacijskiHelper;
 import com.nwt.billings.model.Zakupnina;
 import com.nwt.billings.repos.ZakupninaRepo;
+import com.nwt.billings.services.ZakupninaServis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +20,7 @@ import java.util.List;
 public class BillingsController {
 
     @Autowired
-    private ZakupninaRepo _repo;
+    private ZakupninaServis servis;
 
     @GetMapping("/billings/{korisnikId}/korisnik")
     List<Zakupnina> pregledZakupninaKorisnika(@PathVariable Long korisnikId) {
@@ -27,18 +30,22 @@ public class BillingsController {
                     HttpStatus.BAD_REQUEST, "Pogresan id korisnika");
         }
 
-        return _repo.findByKorisnikId(korisnikId);
+        return servis.dobaviZakupnineKorisnika(korisnikId);
     }
 
     @DeleteMapping("/billings/{id}")
-    void ukloniZakupninu(@PathVariable Long id) {
+    void ukloniZakupninu(@PathVariable Long id,
+                         @RequestHeader("pozivaoc-id") Long korisnikId,
+                         @RequestHeader("pozivaoc-rola") Boolean korisnikRola) {
 
         if (id == 0) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Pogresan id zakupnine");
         }
 
-        _repo.softDeleteById(id, new Date());
+        ValidacijskiHelper.provjeriPristup(id, korisnikId, korisnikRola);
+
+        servis.obrisiKorisnika(id);
     }
 
     @PostMapping("/billings")
@@ -47,34 +54,40 @@ public class BillingsController {
                                                @RequestHeader("pozivaoc-rola") Boolean korisnikRola) {
 
         // provjeri da li je proslijedjeni id korisnika i id pozivaoca isti ili da li je pozivaoc admin
-        if (korisnikId != zakupnina.getKorisnikId() && korisnikRola != Boolean.TRUE) {
-            throw new ResponseStatusException(
-                    HttpStatus.UNAUTHORIZED, "Korisnik nema pravo na kreiranje zakupnine pod tudjim id");
-        }
+        ValidacijskiHelper.provjeriPristup(zakupnina.getKorisnikId(), korisnikId, korisnikRola);
 
-        zakupnina.setDatumKreiranja(new Date());
-        zakupnina.setDatumModificiranja(new Date());
-        zakupnina.setObrisan(Boolean.FALSE);
-        zakupnina.setPotvrdjeno(Boolean.FALSE);
+        ValidacijskiHelper.provjeriDatum(zakupnina.getDatumSklapanjaUgovora(),zakupnina.getDatumRaskidaUgovora());
 
-        var datumSklapanja = zakupnina.getDatumSklapanjaUgovora();
-        var datumRaskida = zakupnina.getDatumRaskidaUgovora();
-
-        if (datumRaskida.before(datumSklapanja) || (datumRaskida.getTime() - datumSklapanja.getTime()) / (24 * 3600 * 1000) < 30) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Datum raskida mora biti minimalno 30 dana poslije datuma sklapanja ugovora");
-        }
-
-        return new ResponseEntity<Zakupnina>(_repo.save(zakupnina), HttpStatus.OK);
+        return new ResponseEntity<Zakupnina>(servis.kreirajZakupninu(zakupnina),
+                HttpStatus.OK);
     }
 
-    //region exception handler
+    @PutMapping("/billings")
+    ResponseEntity<Zakupnina> promijeniZakupninu(@Valid @RequestBody Zakupnina zakupnina,
+                                                 @RequestHeader("pozivaoc-id") Long korisnikId,
+                                                 @RequestHeader("pozivaoc-rola") Boolean korisnikRola){
+
+        ValidacijskiHelper.provjeriPristup(zakupnina.getKorisnikId(), korisnikId, korisnikRola);
+
+        ValidacijskiHelper.provjeriDatum(zakupnina.getDatumSklapanjaUgovora(),zakupnina.getDatumRaskidaUgovora());
+
+        return new ResponseEntity<Zakupnina>(servis.kreirajZakupninu(zakupnina),
+                HttpStatus.OK);
+    }
+
+    //region Exception handler
 
     // validacija modela
     @ExceptionHandler(ResponseStatusException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         return new ResponseEntity<>("Model nije validan: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e) {
+        return new ResponseEntity<>("Nije validno zbog: " + e.getMessage(), HttpStatus.BAD_REQUEST);
     }
     //endregion
 }
