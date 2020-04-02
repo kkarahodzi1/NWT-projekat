@@ -20,11 +20,9 @@ import javax.validation.constraints.Min;
 public class UserController {
 
    // @Autowired
-    private UserRepository repo;
     private UserService serv;
-    UserController(UserRepository r, UserService s)
+    UserController(UserService s)
     {
-        repo = r;
         serv = s;
     }
 
