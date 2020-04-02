@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SkladJedController
 {
     SkladJedService skladJedService;
-    
+
     SkladJedController(SkladJedService skladJedService)
     {
         this.skladJedService = skladJedService;
