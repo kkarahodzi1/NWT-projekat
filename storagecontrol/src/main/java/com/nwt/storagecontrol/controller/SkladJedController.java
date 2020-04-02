@@ -1,19 +1,23 @@
 package com.nwt.storagecontrol.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.nwt.storagecontrol.StoragecontrolApplication;
 import com.nwt.storagecontrol.model.SkladisneJedinice;
 import com.nwt.storagecontrol.model.Skladiste;
 import com.nwt.storagecontrol.model.Tipovi;
 import com.nwt.storagecontrol.repos.SkladJedRepository;
 import com.nwt.storagecontrol.repos.SkladisteRepository;
+import com.nwt.storagecontrol.repos.TipoviRepository;
+import com.nwt.storagecontrol.service.SkladJedService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.JsonParser;
+import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,81 +36,44 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class SkladJedController
 {
-    @Autowired
-    SkladJedRepository skladJedRepository;
-    @Autowired
-    SkladisteRepository skladisteRepository;
+    SkladJedService skladJedService;
+    
+    SkladJedController(SkladJedService skladJedService)
+    {
+        this.skladJedService = skladJedService;
+    }
 
     @GetMapping("/skladjed")
     public ResponseEntity<List<SkladisneJedinice>> getAllSkladJedinice(@RequestParam(required = false) Skladiste skladiste, Integer broj, Tipovi tip) //id skladista
     {
-        try {
-            List<SkladisneJedinice> skladisneJedinice = new ArrayList<SkladisneJedinice>();
-
-            if (skladiste != null)
-                skladJedRepository.findBySkladiste(skladiste).forEach(skladisneJedinice::add);
-            else if (broj != null)
-                skladisneJedinice.add(skladJedRepository.findByBroj(broj));
-            else
-                skladJedRepository.findAll().forEach(skladisneJedinice::add);
-
-            if (skladisneJedinice.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(skladisneJedinice, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return skladJedService.getAllSkladJedinice(skladiste,broj,tip);
     }
 
     @GetMapping("/skladjed/{id}")
-    public ResponseEntity<SkladisneJedinice> getSkladJediniceById(@PathVariable("id") long id) {
-        Optional<SkladisneJedinice> skladisneJediniceData = skladJedRepository.findById(id);
-
-        if (skladisneJediniceData.isPresent()) {
-            return new ResponseEntity<>(skladisneJediniceData.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<SkladisneJedinice> getSkladJediniceById(@PathVariable("id") long id)
+    {
+        return skladJedService.getSkladJediniceById(id);
     }
 
 
     @PostMapping("/skladjed")
-    public ResponseEntity<SkladisneJedinice> createSkladJedinice(@RequestParam Skladiste skladiste,@RequestParam Tipovi tip , Integer broj) {
-        try {
-            SkladisneJedinice _skladjed = skladJedRepository
-                    .save(new SkladisneJedinice(broj,skladiste,tip));
-            return new ResponseEntity<>(_skladjed, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
-        }
+    public ResponseEntity<SkladisneJedinice> createSkladJedinice(@RequestBody String obj)
+    {
+        return skladJedService.createSkladJedinice(obj);
     }
 
 
     @PutMapping("/skladjed/{id}")
-    public ResponseEntity<SkladisneJedinice> updateSkladJedinice(@PathVariable("id") long id, @RequestParam Tipovi tip)
+    public ResponseEntity<SkladisneJedinice> updateSkladJedinice(@PathVariable("id") long id, @RequestBody String tip)
     {
-        Optional<SkladisneJedinice> skladisneJediniceData = skladJedRepository.findById(id);
-
-        if (skladisneJediniceData.isPresent()) {
-            SkladisneJedinice _skladjed = skladisneJediniceData.get();
-            _skladjed.setTip(tip);
-            _skladjed.setDatumModificiranja(new Date());
-            return new ResponseEntity<>(skladJedRepository.save(_skladjed), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return skladJedService.updateSkladJedinice(id,tip);
     }
 
 
     @DeleteMapping("/skladjed/{id}")
-    public ResponseEntity<HttpStatus> deleteSkladJedinice(@PathVariable("id") long id) {
-        try {
-            skladJedRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
-        }
+    public ResponseEntity<HttpStatus> deleteSkladJedinice(@PathVariable("id") long id)
+    {
+        return skladJedService.deleteSkladJedinice(id);
     }
 
 
