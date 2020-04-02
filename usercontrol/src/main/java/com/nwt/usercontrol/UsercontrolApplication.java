@@ -19,7 +19,7 @@ public class UsercontrolApplication {
         SpringApplication.run(UsercontrolApplication.class, args);
     }
 
-    /*@Bean
+    @Bean
     public CommandLineRunner demo(UserRepository repo) {
         return (args) -> {
             // save a few customers
@@ -43,5 +43,5 @@ public class UsercontrolApplication {
 
             log.info("");
         };
-    }*/
+    }
 }
