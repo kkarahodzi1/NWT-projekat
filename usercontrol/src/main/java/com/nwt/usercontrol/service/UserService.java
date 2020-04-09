@@ -1,5 +1,7 @@
 package com.nwt.usercontrol.service;
 
+import com.nwt.usercontrol.apiClients.NotificationsClient;
+import com.nwt.usercontrol.model.Poruka;
 import com.nwt.usercontrol.model.User;
 import com.nwt.usercontrol.repos.UserRepository;
 import org.springframework.http.HttpStatus;
@@ -14,9 +16,11 @@ public class UserService {
 
 
     private UserRepository repo;
-
-    UserService(UserRepository r){
+    private NotificationsClient nc;
+    UserService(UserRepository r, NotificationsClient cl)
+    {
         repo = r;
+        nc = cl;
     }
 
     public ResponseEntity<List<User>>  getAll()
@@ -26,14 +30,20 @@ public class UserService {
 
     public ResponseEntity<User> addNew(User newUser)
     {
+        String ime = newUser.getIme();
+        String prezime = newUser.getPrezime();
+        String email = newUser.getMail();
+        Poruka p = new Poruka(ime, prezime, email);
+        var res = nc.registrujKorisnika(p);
+
         return new ResponseEntity<User>(repo.save(newUser), HttpStatus.OK);
     }
 
-    public ResponseEntity<User> getOne(Long id)
+    public ResponseEntity<Object> getOne(Long id)
     {
-        if(!repo.findById(id).isPresent()) return new ResponseEntity<> (HttpStatus.NOT_FOUND);
+        if(!repo.findById(id).isPresent()) return new ResponseEntity<Object> ("Ne postoji", HttpStatus.NOT_FOUND);
 
-        return new ResponseEntity<User> (repo.findById(id).get(), HttpStatus.OK);
+        return new ResponseEntity<Object> (repo.findById(id).get(), HttpStatus.CREATED);
     }
 
     public ResponseEntity<User> modify(User newUser, Long id)
@@ -58,11 +68,11 @@ public class UserService {
 
     }
 
-    public ResponseEntity<User> softDelete(Long id)
+    public ResponseEntity<Object> softDelete(Long id)
     {
-        if(!repo.findById(id).isPresent()) return new ResponseEntity<> (HttpStatus.NOT_FOUND);
+        if(!repo.findById(id).isPresent()) return new ResponseEntity<Object> ("Korisnik sa ovim ID ne postoji", HttpStatus.NOT_FOUND);
         repo.softDeleteById(id, new Date());
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<Object>(HttpStatus.OK);
     }
 
 }
