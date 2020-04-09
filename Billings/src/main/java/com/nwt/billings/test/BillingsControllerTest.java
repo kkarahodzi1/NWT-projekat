@@ -4,6 +4,7 @@ import com.nwt.billings.controller.BillingsController;
 import com.nwt.billings.helper.JsonHelper;
 import com.nwt.billings.model.Zakupnina;
 import com.nwt.billings.repos.ZakupninaRepo;
+import com.nwt.billings.services.ZakupninaServis;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +31,7 @@ public class BillingsControllerTest {
     private MockMvc mvc;
 
     @MockBean
-    private ZakupninaRepo repo;
+    private ZakupninaServis repo;
 
     @Before
     public void init() {
@@ -41,7 +42,7 @@ public class BillingsControllerTest {
         lista.add(zakup1);
         lista.add(zakup2);
 
-        when(repo.findByKorisnikId((long) 123)).thenReturn(lista);
+        when(repo.dobaviZakupnineKorisnika((long) 123)).thenReturn(lista);
     }
 
     @Test
@@ -90,6 +91,34 @@ public class BillingsControllerTest {
 
         var zakup = new Zakupnina((long)13, (long)123, (long)123, (long)2, new Date(), new Date(), new Date(), new Date(), new Date(), Boolean.TRUE,  Boolean.FALSE, 100.2);
         this.mvc.perform(post("/billings").header("pozivaoc-id",(long)1).header("pozivaoc-rola", Boolean.FALSE)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonHelper.asJsonString(zakup))
+                .characterEncoding("utf-8"))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    public void promijeniZakupninu_vrati400() throws Exception{
+
+        var zakup = new Zakupnina((long)13, (long)123, (long)123, (long)2, new Date(), new Date(), new Date(), new Date(), new Date(), Boolean.TRUE, Boolean.FALSE, 100.2);
+
+        this.mvc.perform(put("/billings").contentType(MediaType.APPLICATION_JSON)
+                .content(JsonHelper.asJsonString(zakup))
+                .characterEncoding("utf-8"))
+                .andExpect(status().isBadRequest());
+
+        zakup.setKorisnikId(null);
+        this.mvc.perform(put("/billings").contentType(MediaType.APPLICATION_JSON)
+                .content(JsonHelper.asJsonString(zakup))
+                .characterEncoding("utf-8"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void promijeniZakupninu_vrati401() throws Exception{
+
+        var zakup = new Zakupnina((long)13, (long)123, (long)123, (long)2, new Date(), new Date(), new Date(), new Date(), new Date(), Boolean.TRUE,  Boolean.FALSE, 100.2);
+        this.mvc.perform(put("/billings").header("pozivaoc-id",(long)1).header("pozivaoc-rola", Boolean.FALSE)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonHelper.asJsonString(zakup))
                 .characterEncoding("utf-8"))

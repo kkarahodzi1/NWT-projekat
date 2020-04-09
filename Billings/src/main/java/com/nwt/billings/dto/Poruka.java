@@ -1,4 +1,4 @@
-package com.nwt.notifications.model;
+package com.nwt.billings.dto;
 
 import javax.validation.constraints.NotNull;
 
@@ -18,12 +18,17 @@ public class Poruka {
     public Poruka() {
     }
 
-    public Poruka(String ime, String prezime, String email, String verifikacijskiKod, String redirektUrl, String poruka) {
+    public Poruka(String ime, String prezime, String email) {
         this.ime = ime;
         this.prezime = prezime;
         this.email = email;
-        this.verifikacijskiKod = verifikacijskiKod;
-        this.redirektUrl = redirektUrl;
+    }
+
+    public String getPoruka() {
+        return poruka;
+    }
+
+    public void setPoruka(String poruka) {
         this.poruka = poruka;
     }
 
@@ -66,12 +71,5 @@ public class Poruka {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getPoruka() {
-        return poruka;
-    }
-
-    public void setPoruka(String poruka) {
-        this.poruka = poruka;
-    }
 }
+
