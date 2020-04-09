@@ -1,22 +1,30 @@
 package com.nwt.notifications.model;
 
+import javax.validation.constraints.NotNull;
+
 public class Poruka {
 
+    @NotNull
     private String ime;
+    @NotNull
     private String prezime;
+    @NotNull
     private String email;
+
     private String verifikacijskiKod;
     private String redirektUrl;
+    private String poruka;
 
     public Poruka() {
     }
 
-    public Poruka(String ime, String prezime, String email, String verifikacijskiKod, String redirektUrl) {
+    public Poruka(String ime, String prezime, String email, String verifikacijskiKod, String redirektUrl, String poruka) {
         this.ime = ime;
         this.prezime = prezime;
         this.email = email;
         this.verifikacijskiKod = verifikacijskiKod;
         this.redirektUrl = redirektUrl;
+        this.poruka = poruka;
     }
 
     public String getIme() {
@@ -49,5 +57,21 @@ public class Poruka {
 
     public void setRedirektUrl(String redirektUrl) {
         this.redirektUrl = redirektUrl;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPoruka() {
+        return poruka;
+    }
+
+    public void setPoruka(String poruka) {
+        this.poruka = poruka;
     }
 }
