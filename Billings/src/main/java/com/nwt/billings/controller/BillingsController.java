@@ -50,6 +50,17 @@ public class BillingsController {
         return servis.dobaviZakupnineKorisnika(korisnikId);
     }
 
+    @GetMapping("/billings/{jedinicaId}/jedinica")
+    List<Zakupnina> pregledZakupninaPoJedinici(@PathVariable Long jedinicaId) {
+
+        if (jedinicaId == 0) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Pogresan id jedinice.");
+        }
+
+        return servis.dobaviZakupninePoJedinici(jedinicaId);
+    }
+
     @DeleteMapping("/billings/{id}")
     void ukloniZakupninu(@PathVariable Long id,
                          @RequestHeader("pozivaoc-id") Long korisnikId,

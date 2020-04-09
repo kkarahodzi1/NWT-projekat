@@ -42,7 +42,7 @@ public class UserController {
 
     // Dohvati korisnika sa odgovarajucim ID
     @GetMapping("/users/{id}")
-    ResponseEntity<User>  one(@Min(1) @PathVariable Long id)
+    ResponseEntity<Object>  one(@Min(1) @PathVariable Long id)
     {
         return serv.getOne(id);
     }
@@ -56,7 +56,7 @@ public class UserController {
 
     // Brisanje korisnika
     @DeleteMapping("/users/{id}")
-    ResponseEntity<User> deleteUser(@Min(1) @PathVariable Long id)
+    ResponseEntity<Object> deleteUser(@Min(1) @PathVariable Long id)
     {
         return serv.softDelete(id);
     }

@@ -19,4 +19,6 @@ public interface ZakupninaRepo extends CrudRepository<Zakupnina, Long> {
     @Transactional
     @Query("update Zakupnina z set z.datumBrisanja = ?2, z.obrisan = 1 where z.id = ?1")
     void softDeleteById(Long id, Date datumBrisanja);
+
+    List<Zakupnina> findByJedinicaId(Long jedinicaId);
 }

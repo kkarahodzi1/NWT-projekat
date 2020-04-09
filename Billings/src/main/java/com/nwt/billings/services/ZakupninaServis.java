@@ -13,4 +13,6 @@ public interface ZakupninaServis {
     Zakupnina kreirajZakupninu(Zakupnina zakupnina);
 
     Zakupnina promijeniZakupninu(Zakupnina zakupnina);
+
+    List<Zakupnina> dobaviZakupninePoJedinici(Long jedinicaId);
 }
