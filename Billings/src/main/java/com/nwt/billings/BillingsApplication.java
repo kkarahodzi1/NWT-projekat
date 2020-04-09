@@ -11,6 +11,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Date;
+
 
 @EnableFeignClients
 @EnableDiscoveryClient
@@ -22,4 +24,21 @@ public class BillingsApplication {
         SpringApplication.run(BillingsApplication.class, args);
     }
 
+    @Bean
+    public CommandLineRunner demo(ZakupninaRepo repo) {
+        return (args) -> {
+            // save a few customers
+            repo.save(new Zakupnina((long)13, (long)2, (long)123, (long)2, new Date(), new Date(), new Date(), new Date(), new Date(), Boolean.TRUE, Boolean.FALSE, 100.2));
+            repo.save(new Zakupnina((long)14, (long)2, (long)123, (long)2, new Date(), new Date(), new Date(), new Date(), new Date(), Boolean.TRUE, Boolean.FALSE, 120.5));
+            // fetch all customers
+            log.info("Sve zakupnine, findAll():");
+            log.info("-------------------------------");
+            for (Zakupnina zk : repo.findAll()) {
+                log.info(zk.toString());
+            }
+            log.info("");
+        };
+    }
 }
+
+

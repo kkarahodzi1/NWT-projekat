@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.ws.rs.Path;
 
 @RestController
 @RequestMapping("/api")
@@ -60,6 +61,10 @@ public class UserController {
     {
         return serv.softDelete(id);
     }
+
+
+    @GetMapping("/users/billings/{id}")
+    ResponseEntity<Object> getBillingsbyId(@PathVariable Long id) { return serv.getBillings(id); }
 
     // Da exception ne vrati http error 500 nego 400
     @ExceptionHandler(ConstraintViolationException.class)

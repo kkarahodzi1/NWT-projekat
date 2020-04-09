@@ -3,24 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="3ce78eb5-3633-4b63-9d04-dcd0f1f12ff3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../Billings/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Billings/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Billings/src/main/java/com/nwt/billings/apiclient/UserKlijent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Billings/src/main/java/com/nwt/billings/apiclient/UserKlijent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Billings/src/main/java/com/nwt/billings/helper/ValidacijskiHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Billings/src/main/java/com/nwt/billings/helper/ValidacijskiHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_zaxxer_HikariCP_3_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_persistence_jakarta_persistence_api_2_2_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_transaction_jakarta_transaction_api_1_3_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_dom4j_dom4j_2_1_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_1_0_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_core_5_4_12_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_24_0_GA.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_jandex_2_1_1_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_jpa_2_2_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_2_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_2_2_5_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aspects_5_2_4_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_2_4_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_5_2_4_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Billings/Billings.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Billings/Billings.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../usercontrol/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../usercontrol/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Notifications.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../usercontrol/src/main/java/com/nwt/usercontrol/apiClients/NotificationsClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../usercontrol/src/main/java/com/nwt/usercontrol/apiClients/NotificationsClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../usercontrol/src/main/java/com/nwt/usercontrol/model/Poruka.java" beforeDir="false" afterPath="$PROJECT_DIR$/../usercontrol/src/main/java/com/nwt/usercontrol/model/Poruka.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../usercontrol/src/main/java/com/nwt/usercontrol/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../usercontrol/src/main/java/com/nwt/usercontrol/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../usercontrol/src/main/java/com/nwt/usercontrol/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../usercontrol/src/main/java/com/nwt/usercontrol/service/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,18 +27,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="importAutomatically" value="true" />
-      </MavenImportingSettings>
-    </option>
-  </component>
   <component name="ProjectId" id="1ZMRwv8WUZls0yav0HZ1XVNRftG" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -57,6 +38,7 @@
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -96,11 +78,12 @@
       <workItem from="1586364867409" duration="4368000" />
       <workItem from="1586448013134" duration="8873000" />
       <workItem from="1586459196776" duration="1058000" />
+      <workItem from="1586465777605" duration="900000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2589" y="38" key="#com.intellij.ide.util.MemberChooser" timestamp="1586457558581">
@@ -109,38 +92,46 @@
     <state x="2589" y="-235" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680/1920.-273.1920.1040@1920.-273.1920.1040" timestamp="1585225744456" />
     <state x="2589" y="38" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586457558581" />
     <state x="446" y="25" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1584650124820" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1586456201752">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1878" height="276" key="GridCell.Tab.0.bottom" timestamp="1586466990448">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586456201752" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1586456201752">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1878" height="276" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1280.1024@0.0.1920.1040" timestamp="1586466990448" />
+    <state width="1878" height="276" key="GridCell.Tab.0.center" timestamp="1586466990448">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586456201752" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1586456201752">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1878" height="276" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1280.1024@0.0.1920.1040" timestamp="1586466990448" />
+    <state width="1878" height="276" key="GridCell.Tab.0.left" timestamp="1586466990448">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586456201752" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1586456201752">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1878" height="276" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1280.1024@0.0.1920.1040" timestamp="1586466990448" />
+    <state width="1878" height="276" key="GridCell.Tab.0.right" timestamp="1586466990448">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586456201752" />
-    <state width="1877" height="282" key="GridCell.Tab.1.bottom" timestamp="1586456201754">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1878" height="276" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1280.1024@0.0.1920.1040" timestamp="1586466990448" />
+    <state width="1878" height="276" key="GridCell.Tab.1.bottom" timestamp="1586466990448">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="282" key="GridCell.Tab.1.bottom/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586456201754" />
-    <state width="1877" height="282" key="GridCell.Tab.1.center" timestamp="1586456201753">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1878" height="276" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1280.1024@0.0.1920.1040" timestamp="1586466990448" />
+    <state width="1878" height="276" key="GridCell.Tab.1.center" timestamp="1586466990448">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="282" key="GridCell.Tab.1.center/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586456201753" />
-    <state width="1877" height="282" key="GridCell.Tab.1.left" timestamp="1586456201753">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1878" height="276" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1280.1024@0.0.1920.1040" timestamp="1586466990448" />
+    <state width="1878" height="276" key="GridCell.Tab.1.left" timestamp="1586466990448">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="282" key="GridCell.Tab.1.left/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586456201753" />
-    <state width="1877" height="282" key="GridCell.Tab.1.right" timestamp="1586456201754">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1878" height="276" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1280.1024@0.0.1920.1040" timestamp="1586466990448" />
+    <state width="1878" height="276" key="GridCell.Tab.1.right" timestamp="1586466990448">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="282" key="GridCell.Tab.1.right/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586456201754" />
+    <state width="1878" height="276" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1280.1024@0.0.1920.1040" timestamp="1586466990448" />
     <state width="1877" height="348" key="GridCell.Tab.2.bottom" timestamp="1586455154726">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

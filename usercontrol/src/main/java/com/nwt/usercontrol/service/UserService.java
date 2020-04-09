@@ -1,5 +1,6 @@
 package com.nwt.usercontrol.service;
 
+import com.nwt.usercontrol.apiClients.BillingsClient;
 import com.nwt.usercontrol.apiClients.NotificationsClient;
 import com.nwt.usercontrol.model.Poruka;
 import com.nwt.usercontrol.model.User;
@@ -11,16 +12,20 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
+import static org.bouncycastle.asn1.bc.BCObjectIdentifiers.bc;
+
 @Service
 public class UserService {
 
 
     private UserRepository repo;
     private NotificationsClient nc;
-    UserService(UserRepository r, NotificationsClient cl)
+    private BillingsClient bl;
+    UserService(UserRepository r, NotificationsClient cl, BillingsClient b)
     {
         repo = r;
         nc = cl;
+        bl = b;
     }
 
     public ResponseEntity<List<User>>  getAll()
@@ -34,7 +39,7 @@ public class UserService {
         String prezime = newUser.getPrezime();
         String email = newUser.getMail();
         Poruka p = new Poruka(ime, prezime, email);
-        var res = nc.registrujKorisnika(p);
+        var res = nc.posaljiUspjesnaRegistracija(p);
 
         return new ResponseEntity<User>(repo.save(newUser), HttpStatus.OK);
     }
@@ -74,5 +79,12 @@ public class UserService {
         repo.softDeleteById(id, new Date());
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
+
+    public ResponseEntity<Object> getBillings(Long id)
+    {
+        if(!repo.findById(id).isPresent()) return new ResponseEntity<Object> ("Korisnik sa ovim ID ne postoji", HttpStatus.NOT_FOUND);
+        return bl.pregledZakupninaKorisnika(id);
+    }
+
 
 }

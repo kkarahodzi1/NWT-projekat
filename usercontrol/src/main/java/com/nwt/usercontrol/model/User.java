@@ -24,7 +24,6 @@ public class User
 
     @NotBlank
     @Column(unique=true)
-    @Pattern(regexp = "^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$")
     private String mail;
 
     @NotBlank
