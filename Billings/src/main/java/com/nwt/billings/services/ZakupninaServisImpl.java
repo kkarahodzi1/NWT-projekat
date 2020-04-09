@@ -1,5 +1,7 @@
 package com.nwt.billings.services;
 
+import com.nwt.billings.apiclient.NotificationsKlijent;
+import com.nwt.billings.dto.Poruka;
 import com.nwt.billings.model.Zakupnina;
 import com.nwt.billings.repos.ZakupninaRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,9 @@ public class ZakupninaServisImpl implements ZakupninaServis {
 
     @Autowired
     private ZakupninaRepo _repo;
+
+    @Autowired
+    private NotificationsKlijent notificationsKlijent;
 
     @Override
     public List<Zakupnina> dobaviZakupnineKorisnika(Long idKorisnika) {
