@@ -17,10 +17,10 @@ public class ValidacijskiHelper {
 
     public static void provjeriDatum(Date datumSklapanja, Date datumRaskida){
 
-        if (datumRaskida.before(datumSklapanja) || (datumRaskida.getTime() - datumSklapanja.getTime()) / (24 * 3600 * 1000) < 30) {
+        if (datumRaskida.before(datumSklapanja)) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
-                    "Datum raskida mora biti minimalno 30 dana poslije datuma sklapanja ugovora");
+                    "Datum raskida mora biti kasniji od datuma sklapanja.");
         }
 
     }
