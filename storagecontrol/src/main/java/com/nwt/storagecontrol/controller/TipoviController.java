@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nwt.storagecontrol.model.Tipovi;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:8083")
 @RestController
 @RequestMapping("/api")
 public class TipoviController
@@ -32,28 +32,28 @@ public class TipoviController
     }
 
     @GetMapping("/tipovi")
-    public ResponseEntity<List<Tipovi>> getAllTipovi(@RequestParam(required = false) String naziv)
+    public ResponseEntity<Object> getAllTipovi(@RequestParam(required = false) String naziv)
     {
         return tipoviService.getAll(naziv);
     }
 
     @GetMapping("/tipovi/{id}")
-    public ResponseEntity<Tipovi> getTipoviById(@PathVariable("id") long id) {
+    public ResponseEntity<Object> getTipoviById(@PathVariable("id") long id) {
         return tipoviService.getById(id);
     }
 
     @PostMapping("/tipovi")
-    public ResponseEntity<Tipovi> createTip(@RequestBody Tipovi tipovi) {
+    public ResponseEntity<Object> createTip(@RequestBody Tipovi tipovi) {
         return tipoviService.createTip(tipovi);
     }
 
     @DeleteMapping("/tipovi")
-    public ResponseEntity<HttpStatus> deleteByNaziv(@RequestParam(required = true) String naziv) {
+    public ResponseEntity<Object> deleteByNaziv(@RequestParam(required = true) String naziv) {
         return tipoviService.deleteByNaziv(naziv);
     }
 
     @DeleteMapping("/tipovi/{id}")
-    public ResponseEntity<String> deleteTip(@PathVariable("id") long id) {
+    public ResponseEntity<Object> deleteTip(@PathVariable("id") long id) {
         return tipoviService.deleteTip(id);
     }
 

@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:8083")
 @RestController
 @RequestMapping("/api")
 public class SkladJedController
@@ -44,34 +44,34 @@ public class SkladJedController
     }
 
     @GetMapping("/skladjed")
-    public ResponseEntity<List<SkladisneJedinice>> getAllSkladJedinice(@RequestParam(required = false) Skladiste skladiste, Integer broj, Tipovi tip) //id skladista
+    public ResponseEntity<Object> getAllSkladJedinice(@RequestParam(required = false) Skladiste skladiste, Integer broj, Tipovi tip) //id skladista
     {
         return skladJedService.getAllSkladJedinice(skladiste,broj,tip);
     }
 
     @GetMapping("/skladjed/{id}")
-    public ResponseEntity<SkladisneJedinice> getSkladJediniceById(@PathVariable("id") long id)
+    public ResponseEntity<Object> getSkladJediniceById(@PathVariable("id") long id)
     {
         return skladJedService.getSkladJediniceById(id);
     }
 
 
     @PostMapping("/skladjed")
-    public ResponseEntity<SkladisneJedinice> createSkladJedinice(@RequestBody String obj)
+    public ResponseEntity<Object> createSkladJedinice(@RequestBody String obj)
     {
         return skladJedService.createSkladJedinice(obj);
     }
 
 
     @PutMapping("/skladjed/{id}")
-    public ResponseEntity<SkladisneJedinice> updateSkladJedinice(@PathVariable("id") long id, @RequestBody String tip)
+    public ResponseEntity<Object> updateSkladJedinice(@PathVariable("id") long id, @RequestBody String tip)
     {
         return skladJedService.updateSkladJedinice(id,tip);
     }
 
 
     @DeleteMapping("/skladjed/{id}")
-    public ResponseEntity<HttpStatus> deleteSkladJedinice(@PathVariable("id") long id)
+    public ResponseEntity<Object> deleteSkladJedinice(@PathVariable("id") long id)
     {
         return skladJedService.deleteSkladJedinice(id);
     }

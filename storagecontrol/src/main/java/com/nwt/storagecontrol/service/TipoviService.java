@@ -25,7 +25,7 @@ public class TipoviService
         this.tipoviRepository = tipoviRepository;
     }
 
-    public ResponseEntity<List<Tipovi>> getAll(String naziv)
+    public ResponseEntity<Object> getAll(String naziv)
     {
         try {
             List<Tipovi> tipovi = new ArrayList<Tipovi>();
@@ -36,52 +36,52 @@ public class TipoviService
                 tipovi.add(tipoviRepository.findByNaziv(naziv));
 
             if (tipovi.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>("Traženi tipovi ne postoje",HttpStatus.NO_CONTENT);
             }
             return new ResponseEntity<>(tipovi, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    public ResponseEntity<Tipovi> getById(long id)
+    public ResponseEntity<Object> getById(long id)
     {
         Optional<Tipovi> tipovilData = tipoviRepository.findById(id);
 
         if (tipovilData.isPresent()) {
             return new ResponseEntity<>(tipovilData.get(), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Ne postoji tip sa id = "+id,HttpStatus.NOT_FOUND);
         }
     }
 
 
-    public ResponseEntity<Tipovi> createTip(Tipovi tipovi) {
+    public ResponseEntity<Object> createTip(Tipovi tipovi) {
         try {
             Tipovi _tip = tipoviRepository
                     .save(new Tipovi(tipovi.getNaziv(), tipovi.getCijena()));
             return new ResponseEntity<>(_tip, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
+            return new ResponseEntity<>("Proslijeđeni podaci nisu ispravni", HttpStatus.EXPECTATION_FAILED);
         }
     }
 
-    public ResponseEntity<HttpStatus> deleteByNaziv(String naziv) {
+    public ResponseEntity<Object> deleteByNaziv(String naziv) {
         try {
             tipoviRepository.deleteById(tipoviRepository.findByNaziv(naziv).getId());
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>("Uspješno obrisan tip sa nazivom: "+naziv, HttpStatus.NO_CONTENT);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+            return new ResponseEntity<>("Greška pri brisanju: " + e.getMessage(),HttpStatus.EXPECTATION_FAILED);
         }
     }
 
 
-    public ResponseEntity<String> deleteTip(long id) {
+    public ResponseEntity<Object> deleteTip(long id) {
         try {
             tipoviRepository.deleteById(id);
-            return new ResponseEntity<>("Succesfully deleted",HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>("Uspješno obrisano",HttpStatus.NO_CONTENT);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.EXPECTATION_FAILED);
+            return new ResponseEntity<>("Greška pri brisanju: " + e.getMessage(),HttpStatus.EXPECTATION_FAILED);
         }
     }
 }

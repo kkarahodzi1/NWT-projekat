@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:8083")
 @RestController
 @RequestMapping("/api")
 public class SkladisteController
@@ -36,37 +36,37 @@ public class SkladisteController
     }
 
     @GetMapping("/skladista")
-    public ResponseEntity<List<Skladiste>> getAllSkladista(@RequestParam(required = false) String adresa) {
+    public ResponseEntity<Object> getAllSkladista(@RequestParam(required = false) String adresa) {
         return skladistaService.getAllSkladista(adresa);
     }
 
     @GetMapping("/skladista/{id}")
-    public ResponseEntity<Skladiste> getSkladisteById(@PathVariable("id") long id) {
+    public ResponseEntity<Object> getSkladisteById(@PathVariable("id") long id) {
         return skladistaService.getSkladisteById(id);
     }
 
     @PostMapping("/skladista")
-    public ResponseEntity<Skladiste> createSkladiste(@RequestBody Skladiste skladista) {
+    public ResponseEntity<Object> createSkladiste(@RequestBody Skladiste skladista) {
         return skladistaService.createSkladiste(skladista);
     }
 
     @PutMapping("/skladista/{id}")
-    public ResponseEntity<Skladiste> updateSkladiste(@PathVariable("id") long id, @RequestBody Skladiste skladiste) {
+    public ResponseEntity<Object> updateSkladiste(@PathVariable("id") long id, @RequestBody Skladiste skladiste) {
         return skladistaService.updateSkladiste(id, skladiste);
     }
 
     @PutMapping("/skladista/obrisi/{id}")
-    public ResponseEntity<Skladiste> obrisiSkladiste(@PathVariable("id") long id) {
+    public ResponseEntity<Object> obrisiSkladiste(@PathVariable("id") long id) {
         return skladistaService.obrisiSkladiste(id);
     }
 
     @PutMapping("/skladista/vrati/{id}")
-    public ResponseEntity<Skladiste> vratiSkladiste(@PathVariable("id") long id) {
+    public ResponseEntity<Object> vratiSkladiste(@PathVariable("id") long id) {
         return vratiSkladiste(id);
     }
 
     @DeleteMapping("/skladista/{id}")
-    public ResponseEntity<HttpStatus> deleteSkladiste(@PathVariable("id") long id) {
+    public ResponseEntity<Object> deleteSkladiste(@PathVariable("id") long id) {
         return skladistaService.deleteSkladiste(id);
     }
 
