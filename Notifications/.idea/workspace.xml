@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3ce78eb5-3633-4b63-9d04-dcd0f1f12ff3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../Billings/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Billings/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/../Billings/Billings.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Billings/Billings.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Notifications.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Notifications.iml" afterDir="false" />
@@ -10,6 +11,13 @@
       <change beforePath="$PROJECT_DIR$/../usercontrol/src/main/java/com/nwt/usercontrol/model/Poruka.java" beforeDir="false" afterPath="$PROJECT_DIR$/../usercontrol/src/main/java/com/nwt/usercontrol/model/Poruka.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../usercontrol/src/main/java/com/nwt/usercontrol/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../usercontrol/src/main/java/com/nwt/usercontrol/model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../usercontrol/src/main/java/com/nwt/usercontrol/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../usercontrol/src/main/java/com/nwt/usercontrol/service/UserService.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/../Billings/src/main/java/com/nwt/billings/controller/BillingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Billings/src/main/java/com/nwt/billings/controller/BillingsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Billings/src/main/java/com/nwt/billings/repos/ZakupninaRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Billings/src/main/java/com/nwt/billings/repos/ZakupninaRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Billings/src/main/java/com/nwt/billings/services/ZakupninaServis.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Billings/src/main/java/com/nwt/billings/services/ZakupninaServis.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Billings/src/main/java/com/nwt/billings/services/ZakupninaServisImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Billings/src/main/java/com/nwt/billings/services/ZakupninaServisImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> e5f4dc0e8a93445e9f91fe58e3d3c46105ef0d2e
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,8 +85,12 @@
       <workItem from="1585249672340" duration="1908000" />
       <workItem from="1586364867409" duration="4368000" />
       <workItem from="1586448013134" duration="8873000" />
+<<<<<<< HEAD
       <workItem from="1586459196776" duration="1058000" />
       <workItem from="1586465777605" duration="900000" />
+=======
+      <workItem from="1586459196776" duration="1657000" />
+>>>>>>> e5f4dc0e8a93445e9f91fe58e3d3c46105ef0d2e
     </task>
     <servers />
   </component>

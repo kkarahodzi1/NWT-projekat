@@ -49,4 +49,9 @@ public class ZakupninaServisImpl implements ZakupninaServis {
 
         return _repo.save(zakupnina);
     }
+
+    @Override
+    public List<Zakupnina> dobaviZakupninePoJedinici(Long jedinicaId) {
+        return _repo.findByJedinicaId(jedinicaId);
+    }
 }
