@@ -33,7 +33,7 @@ public class UserService {
 
     public ResponseEntity<List<User>>  getAll()
     {
-        return new ResponseEntity<List<User>>(repo.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(repo.findAll(), HttpStatus.OK);
     }
 
     public ResponseEntity<Object> addNew(User newUser)
@@ -69,14 +69,14 @@ public class UserService {
 
     public ResponseEntity<Object> getOne(Long id)
     {
-        if(!repo.findById(id).isPresent()) return new ResponseEntity<Object> ("Ne postoji", HttpStatus.NOT_FOUND);
+        if(!repo.findById(id).isPresent()) return new ResponseEntity<Object> ("{ \"errmsg\": \"Ne postoji\" }", HttpStatus.NOT_FOUND);
 
         return new ResponseEntity<Object> (repo.findById(id).get(), HttpStatus.OK);
     }
 
-    public ResponseEntity<User> modify(User newUser, Long id)
+    public ResponseEntity<Object> modify(User newUser, Long id)
     {
-        return new ResponseEntity<User>(repo.findById(id)
+        return new ResponseEntity<Object>(repo.findById(id)
                 .map(user -> {
                     user.setIme(newUser.getIme());
                     user.setPrezime(newUser.getPrezime());
@@ -98,14 +98,14 @@ public class UserService {
 
     public ResponseEntity<Object> softDelete(Long id)
     {
-        if(!repo.findById(id).isPresent()) return new ResponseEntity<Object> ("Korisnik sa ovim ID ne postoji", HttpStatus.NOT_FOUND);
+        if(!repo.findById(id).isPresent()) return new ResponseEntity<Object> ("{ \"errmsg\": \"Ne postoji\" }", HttpStatus.NOT_FOUND);
         repo.softDeleteById(id, new Date());
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
 
     public ResponseEntity<Object> getBillings(Long id)
     {
-        if(!repo.findById(id).isPresent()) return new ResponseEntity<Object> ("Korisnik sa ovim ID ne postoji", HttpStatus.NOT_FOUND);
+        if(!repo.findById(id).isPresent()) return new ResponseEntity<Object> ("{ \"errmsg\": \"Ne postoji\" }", HttpStatus.NOT_FOUND);
         return bl.pregledZakupninaKorisnika(id);
     }
 

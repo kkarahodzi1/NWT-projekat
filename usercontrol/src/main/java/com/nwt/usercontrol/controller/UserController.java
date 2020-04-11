@@ -50,7 +50,7 @@ public class UserController {
 
     // Update korisnika (ili dodavanje novog ako nema)
     @PutMapping("/users/{id}")
-    ResponseEntity<User> replaceUser(@Valid @RequestBody User newUser, @Min(1) @PathVariable Long id)
+    ResponseEntity<Object> replaceUser(@Valid @RequestBody User newUser, @Min(1) @PathVariable Long id)
     {
         return serv.modify(newUser, id);
     }
