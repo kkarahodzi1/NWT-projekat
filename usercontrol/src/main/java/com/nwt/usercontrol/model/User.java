@@ -6,6 +6,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.ws.rs.DefaultValue;
 import java.util.Date;
 
 @Entity
@@ -30,17 +31,17 @@ public class User
     private String password;
 
     @NotNull
-    private int role;
+    private int role = 1;
+
+    private Date datumKreiranja = new Date();
 
 
-    private Date datumKreiranja;
-
-
-    private Date datumModificiranja;
-    private Date datumBrisanja;
+    private Date datumModificiranja = new Date();
+    private Date datumBrisanja = null;
 
     @NotNull
-    private int obrisan;
+    private int obrisan = 0;
+    
     protected User() {}
 
     public User(String fn, String ln, String ml, String pw, int role) {

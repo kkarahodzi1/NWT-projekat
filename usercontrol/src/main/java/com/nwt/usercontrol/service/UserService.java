@@ -62,7 +62,7 @@ public class UserService {
                 return new ResponseEntity<Object>("{ \"errmsg\": \"Ova email adresa je zauzeta\"}", HttpStatus.BAD_REQUEST);
 
         Poruka p = new Poruka(ime, prezime, email);
-        var res = nc.posaljiUspjesnaRegistracija(p);
+        //var res = nc.posaljiUspjesnaRegistracija(p);
 
         return new ResponseEntity<Object>(repo.save(newUser), HttpStatus.CREATED);
     }
