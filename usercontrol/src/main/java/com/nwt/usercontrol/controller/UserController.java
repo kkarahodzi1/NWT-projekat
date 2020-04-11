@@ -36,7 +36,7 @@ public class UserController {
 
     // Dodaj novog korisnika
     @PostMapping("/users")
-    ResponseEntity<User> newUser(@Valid @RequestBody User newUser)
+    ResponseEntity<Object> newUser(@Valid @RequestBody User newUser)
     {
         return serv.addNew(newUser);
     }

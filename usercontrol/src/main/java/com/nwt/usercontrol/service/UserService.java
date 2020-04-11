@@ -1,14 +1,17 @@
 package com.nwt.usercontrol.service;
 
+import com.google.gson.Gson;
 import com.nwt.usercontrol.apiClients.BillingsClient;
 import com.nwt.usercontrol.apiClients.NotificationsClient;
 import com.nwt.usercontrol.model.Poruka;
 import com.nwt.usercontrol.model.User;
 import com.nwt.usercontrol.repos.UserRepository;
+import org.json.simple.JSONArray;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,22 +36,43 @@ public class UserService {
         return new ResponseEntity<List<User>>(repo.findAll(), HttpStatus.OK);
     }
 
-    public ResponseEntity<User> addNew(User newUser)
+    public ResponseEntity<Object> addNew(User newUser)
     {
         String ime = newUser.getIme();
         String prezime = newUser.getPrezime();
         String email = newUser.getMail();
-        Poruka p = new Poruka(ime, prezime, email);
-        var res = nc.posaljiUspjesnaRegistracija(p);
+        List<String> errmsgs = new ArrayList<String>();
 
-        return new ResponseEntity<User>(repo.save(newUser), HttpStatus.OK);
+        Gson gs = new Gson();
+
+
+        if(ime.equals("") || prezime.equals("") || email.equals(""))
+        {
+            if(ime.equals("")) errmsgs.add("ime");
+            if(prezime.equals("")) errmsgs.add("prezime");
+            if(email.equals("")) errmsgs.add("email");
+            String msg = "{ \"errmsg\": " + gs.toJson(errmsgs) + "}";
+
+            return new ResponseEntity<Object>(msg, HttpStatus.BAD_REQUEST);
+        }
+
+
+        List<User> lu = repo.findAll();
+        for (User user : lu)
+            if (email.equals(user.getMail()))
+                return new ResponseEntity<Object>("{ \"errmsg\": \"Ova email adresa je zauzeta\"}", HttpStatus.BAD_REQUEST);
+
+        Poruka p = new Poruka(ime, prezime, email);
+        //var res = nc.posaljiUspjesnaRegistracija(p);
+
+        return new ResponseEntity<Object>(repo.save(newUser), HttpStatus.CREATED);
     }
 
     public ResponseEntity<Object> getOne(Long id)
     {
         if(!repo.findById(id).isPresent()) return new ResponseEntity<Object> ("Ne postoji", HttpStatus.NOT_FOUND);
 
-        return new ResponseEntity<Object> (repo.findById(id).get(), HttpStatus.CREATED);
+        return new ResponseEntity<Object> (repo.findById(id).get(), HttpStatus.OK);
     }
 
     public ResponseEntity<User> modify(User newUser, Long id)

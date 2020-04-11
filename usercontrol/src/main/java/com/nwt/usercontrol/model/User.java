@@ -16,13 +16,13 @@ public class User
     @Min(1)
     private Long korisnikId;
 
-    @NotBlank
+   // @NotBlank
     private String ime;
 
-    @NotBlank
+   // @NotBlank
     private String prezime;
 
-    @NotBlank
+   // @NotBlank
     @Column(unique=true)
     private String mail;
 
