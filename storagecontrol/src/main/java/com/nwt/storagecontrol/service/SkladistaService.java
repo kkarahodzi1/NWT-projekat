@@ -3,7 +3,9 @@ package com.nwt.storagecontrol.service;
 import com.nwt.storagecontrol.model.Skladiste;
 import com.nwt.storagecontrol.repos.SkladisteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -35,11 +37,15 @@ public class SkladistaService
                 skladista.add(skladisteRepository.findByAdresa(adresa));
 
             if (skladista.isEmpty()) {
-                return new ResponseEntity<>("Ne postoje tražena skladišta", HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
-            return new ResponseEntity<>(skladista, HttpStatus.OK);
+            HttpHeaders header = new HttpHeaders();
+            header.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity<>(skladista, header, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("Serverska greška: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            HttpHeaders header = new HttpHeaders();
+            header.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity<>("{\"errmsg\" : \"Greška na serveru\", \"original\":\""+e.getMessage()+"\"}",header, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -47,9 +53,13 @@ public class SkladistaService
         Optional<Skladiste> skladisteData = skladisteRepository.findById(id);
 
         if (skladisteData.isPresent()) {
-            return new ResponseEntity<>(skladisteData.get(), HttpStatus.OK);
+            HttpHeaders header = new HttpHeaders();
+            header.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity<>(skladisteData.get(), header, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Ne postoji skladište sa id = "+id,HttpStatus.NOT_FOUND);
+            HttpHeaders header = new HttpHeaders();
+            header.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity<>("{\"errmsg\" : \"Ne postoji skladište sa tim id\", \"id\": "+id+"}", header ,HttpStatus.NOT_FOUND);
         }
     }
 
@@ -57,29 +67,37 @@ public class SkladistaService
         try {
             Skladiste _skladiste = skladisteRepository
                     .save(new Skladiste(skladista.getAdresa(), skladista.getBrojJedinica()));
-            return new ResponseEntity<>(_skladiste, HttpStatus.CREATED);
+            HttpHeaders header = new HttpHeaders();
+            header.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity<>(_skladiste, header, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>("Neispravni podaci", HttpStatus.EXPECTATION_FAILED);
+            HttpHeaders header = new HttpHeaders();
+            header.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity<>("{\"errmsg\" : \"Proslijeđeni podaci nisu ispravni\", \"original\":\""+e.getMessage()+"\"}", header,HttpStatus.EXPECTATION_FAILED);
         }
     }
 
     public ResponseEntity<Object> updateSkladiste(long id, Skladiste skladiste) {
         Optional<Skladiste> skladisteData = skladisteRepository.findById(id);
 
+        HttpHeaders header = new HttpHeaders();
+        header.setContentType(MediaType.APPLICATION_JSON);
         if (skladisteData.isPresent()) {
             Skladiste _skladiste = skladisteData.get();
             _skladiste.setAdresa(skladiste.getAdresa());
             _skladiste.setBrojJedinica(skladiste.getBrojJedinica());
             _skladiste.setDatumModificiranja(new Date());
-            return new ResponseEntity<>(skladisteRepository.save(_skladiste), HttpStatus.OK);
+            return new ResponseEntity<>(skladisteRepository.save(_skladiste), header, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Ne postoji skladište sa id = "+id,HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("{\"errmsg\" : \"Ne postoji skladište sa tim id\", \"id\": "+id+"}", header ,HttpStatus.NOT_FOUND);
         }
     }
 
     public ResponseEntity<Object> obrisiSkladiste(long id) {
         Optional<Skladiste> skladisteData = skladisteRepository.findById(id);
 
+        HttpHeaders header = new HttpHeaders();
+        header.setContentType(MediaType.APPLICATION_JSON);
         if (skladisteData.isPresent()) {
             Skladiste _skladiste = skladisteData.get();
             if(!_skladiste.getObrisan())
@@ -87,14 +105,14 @@ public class SkladistaService
                 _skladiste.setDatumBrisanja(new Date());
                 _skladiste.setObrisan(Boolean.TRUE);
                 _skladiste.setDatumModificiranja(new Date());
-                return new ResponseEntity<>(skladisteRepository.save(_skladiste), HttpStatus.OK);
+                return new ResponseEntity<>(skladisteRepository.save(_skladiste), header, HttpStatus.OK);
             }
             else
             {
-                return new ResponseEntity<>("Nije moguće obrisati skladište",HttpStatus.EXPECTATION_FAILED);
+                return new ResponseEntity<>("{\"errmsg\" : \"Skladište je već obrisano\", \"id\": "+id+"}", header ,HttpStatus.NOT_FOUND);
             }
         } else {
-            return new ResponseEntity<>("Ne postoji skladište sa id = "+id,HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("{\"errmsg\" : \"Ne postoji skladište sa tim id\", \"id\": "+id+"}", header ,HttpStatus.NOT_FOUND);
         }
     }
 
@@ -102,29 +120,35 @@ public class SkladistaService
     {
         Optional<Skladiste> skladisteData = skladisteRepository.findById(id);
 
+        HttpHeaders header = new HttpHeaders();
+        header.setContentType(MediaType.APPLICATION_JSON);
         if (skladisteData.isPresent()) {
             Skladiste _skladiste = skladisteData.get();
             if(_skladiste.getObrisan())
             {
                 _skladiste.setObrisan(Boolean.FALSE);
                 _skladiste.setDatumModificiranja(new Date());
-                return new ResponseEntity<>(skladisteRepository.save(_skladiste), HttpStatus.OK);
+                return new ResponseEntity<>(skladisteRepository.save(_skladiste), header, HttpStatus.OK);
             }
             else
             {
-                return new ResponseEntity<>("Nije moguće vratiti skladište",HttpStatus.EXPECTATION_FAILED);
+                return new ResponseEntity<>("{\"errmsg\" : \"Skladište nije obrisano\", \"id\": "+id+"}", header ,HttpStatus.NOT_FOUND);
             }
         } else {
-            return new ResponseEntity<>("Ne postoji skladište sa id = "+id,HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("{\"errmsg\" : \"Ne postoji skladište sa tim id\", \"id\": "+id+"}", header ,HttpStatus.NOT_FOUND);
         }
     }
 
     public ResponseEntity<Object> deleteSkladiste(long id) {
-        try {
+        try
+        {
             skladisteRepository.deleteById(id);
-            return new ResponseEntity<>("Skladište je uspješno obrisano",HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Greška pri brisanju: " + e.getMessage(),HttpStatus.EXPECTATION_FAILED);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e)
+        {
+            HttpHeaders header = new HttpHeaders();
+            header.setContentType(MediaType.APPLICATION_JSON);
+            return new ResponseEntity<>("{\"errmsg\" : \"Greška pri brisanju\", \"original\":\"" + e.getMessage().replace("\"", "") + "\"}", header, HttpStatus.EXPECTATION_FAILED);
         }
     }
 

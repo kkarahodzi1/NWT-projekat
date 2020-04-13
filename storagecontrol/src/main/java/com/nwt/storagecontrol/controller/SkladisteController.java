@@ -62,7 +62,7 @@ public class SkladisteController
 
     @PutMapping("/skladista/vrati/{id}")
     public ResponseEntity<Object> vratiSkladiste(@PathVariable("id") long id) {
-        return vratiSkladiste(id);
+        return skladistaService.vratiSkladiste(id);
     }
 
     @DeleteMapping("/skladista/{id}")

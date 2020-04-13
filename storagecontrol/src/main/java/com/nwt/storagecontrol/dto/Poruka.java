@@ -1,4 +1,4 @@
-package com.nwt.storagecontrol.model;
+package com.nwt.storagecontrol.dto;
 
 import javax.validation.constraints.NotNull;
 
