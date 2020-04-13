@@ -75,7 +75,7 @@ public class TipoviService
         } catch (Exception e) {
             HttpHeaders header = new HttpHeaders();
             header.setContentType(MediaType.APPLICATION_JSON);
-            return new ResponseEntity<>("{\"errmsg\" : \"Proslijeđeni podaci nisu ispravni\", \"original\":\""+e.getMessage()+"\"}",header, HttpStatus.EXPECTATION_FAILED);
+            return new ResponseEntity<>("{\"errmsg\" : \"Proslijeđeni podaci nisu ispravni\", \"original\":\""+e.getMessage().replace("\"", "") +"\"}",header, HttpStatus.EXPECTATION_FAILED);
         }
     }
 
@@ -94,7 +94,7 @@ public class TipoviService
         } catch (Exception e) {
             HttpHeaders header = new HttpHeaders();
             header.setContentType(MediaType.APPLICATION_JSON);
-            return new ResponseEntity<>("{\"errmsg\" : \"Greška pri brisanju\", \"original\":\""+e.getMessage()+"\"}",header,HttpStatus.EXPECTATION_FAILED);
+            return new ResponseEntity<>("{\"errmsg\" : \"Greška pri brisanju\", \"original\":\""+e.getMessage().replace("\"", "") +"\"}",header,HttpStatus.EXPECTATION_FAILED);
         }
     }
 

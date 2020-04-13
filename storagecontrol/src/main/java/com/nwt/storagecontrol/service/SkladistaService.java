@@ -109,7 +109,7 @@ public class SkladistaService
             }
             else
             {
-                return new ResponseEntity<>("{\"errmsg\" : \"Skladište je već obrisano\", \"id\": "+id+"}", header ,HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("{\"errmsg\" : \"Skladište je već obrisano\", \"id\": "+id+"}", header ,HttpStatus.EXPECTATION_FAILED);
             }
         } else {
             return new ResponseEntity<>("{\"errmsg\" : \"Ne postoji skladište sa tim id\", \"id\": "+id+"}", header ,HttpStatus.NOT_FOUND);
@@ -132,7 +132,7 @@ public class SkladistaService
             }
             else
             {
-                return new ResponseEntity<>("{\"errmsg\" : \"Skladište nije obrisano\", \"id\": "+id+"}", header ,HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("{\"errmsg\" : \"Skladište nije obrisano\", \"id\": "+id+"}", header ,HttpStatus.EXPECTATION_FAILED);
             }
         } else {
             return new ResponseEntity<>("{\"errmsg\" : \"Ne postoji skladište sa tim id\", \"id\": "+id+"}", header ,HttpStatus.NOT_FOUND);
