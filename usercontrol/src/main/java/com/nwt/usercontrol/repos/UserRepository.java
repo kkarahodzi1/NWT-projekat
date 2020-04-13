@@ -1,6 +1,8 @@
 package com.nwt.usercontrol.repos;
 
 import com.nwt.usercontrol.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.FeignContext;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

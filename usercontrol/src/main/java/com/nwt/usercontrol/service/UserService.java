@@ -7,12 +7,14 @@ import com.nwt.usercontrol.model.Poruka;
 import com.nwt.usercontrol.model.User;
 import com.nwt.usercontrol.repos.UserRepository;
 import org.json.simple.JSONArray;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.FeignContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestHeader;
-
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,10 +24,14 @@ import static org.bouncycastle.asn1.bc.BCObjectIdentifiers.bc;
 @Service
 public class UserService {
 
-
+    @Autowired
     private UserRepository repo;
+    @Autowired
     private NotificationsClient nc;
+    @Autowired
     private BillingsClient bl;
+
+
     UserService(UserRepository r, NotificationsClient cl, BillingsClient b)
     {
         repo = r;
@@ -65,7 +71,7 @@ public class UserService {
                 return new ResponseEntity<Object>("{ \"errmsg\": \"Ova email adresa je zauzeta\"}", rsp, HttpStatus.BAD_REQUEST);
 
         Poruka p = new Poruka(ime, prezime, email);
-        var res = nc.posaljiUspjesnaRegistracija(p);
+       // var res = nc.posaljiUspjesnaRegistracija(p);
 
         return new ResponseEntity<Object>(repo.save(newUser), rsp, HttpStatus.CREATED);
     }

@@ -8,6 +8,7 @@ import com.nwt.usercontrol.model.User;
 import com.nwt.usercontrol.repos.UserRepository;
 import com.nwt.usercontrol.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +24,13 @@ public class UserController {
 
    // @Autowired
     private UserService serv;
+    @Autowired
     UserController(UserService s)
     {
         serv = s;
     }
 
+    UserController(){}
     // Dohvati sve korisnike
     @GetMapping("/users")
     ResponseEntity<List<User>> all()
