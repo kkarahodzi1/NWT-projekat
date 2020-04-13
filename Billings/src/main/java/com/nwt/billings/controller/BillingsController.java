@@ -73,7 +73,7 @@ public class BillingsController {
 
         ValidacijskiHelper.provjeriPristup(id, korisnikId, korisnikRola);
 
-        servis.obrisiKorisnika(id);
+        servis.obrisiZakupninu(id);
     }
 
     @PostMapping("/billings")

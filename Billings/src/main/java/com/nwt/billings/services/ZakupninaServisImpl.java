@@ -25,7 +25,7 @@ public class ZakupninaServisImpl implements ZakupninaServis {
     }
 
     @Override
-    public void obrisiKorisnika(Long idKorisnika) {
+    public void obrisiZakupninu(Long idKorisnika) {
         _repo.softDeleteById(idKorisnika, new Date());
     }
 

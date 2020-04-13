@@ -8,7 +8,7 @@ public interface ZakupninaServis {
 
     List<Zakupnina> dobaviZakupnineKorisnika(Long idKorisnika);
 
-    void obrisiKorisnika(Long idKorisnika);
+    void obrisiZakupninu(Long idKorisnika);
 
     Zakupnina kreirajZakupninu(Zakupnina zakupnina);
 
