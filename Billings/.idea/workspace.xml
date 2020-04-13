@@ -4,9 +4,10 @@
     <list default="true" id="0ac3ede1-9ee9-45d6-88f3-d157f14e3704" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/nwt/billings/controller/BillingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nwt/billings/controller/BillingsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nwt/billings/services/ZakupninaServis.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nwt/billings/services/ZakupninaServis.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nwt/billings/services/ZakupninaServisImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nwt/billings/services/ZakupninaServisImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nwt/billings/test/BillingsControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nwt/billings/test/BillingsControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/nwt/billings/BillingsApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/nwt/billings/BillingsApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Notifications/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Notifications/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Notifications/src/test/java/com/nwt/notifications/NotificationsApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Notifications/src/test/java/com/nwt/notifications/NotificationsApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../usercontrol/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../usercontrol/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,12 +40,59 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../usercontrol" />
   </component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
-  <component name="RunManager" selected="JUnit.BillingsControllerTest">
+  <component name="RunManager" selected="Spring Boot.BillingsApplication">
+    <configuration name="BillingsApplicationTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Billings" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.nwt.billings.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.nwt.billings" />
+      <option name="MAIN_CLASS_NAME" value="com.nwt.billings.BillingsApplicationTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BillingsApplicationTests.kreirajZakupnninu_INVALID_404" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Billings" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.nwt.billings.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.nwt.billings" />
+      <option name="MAIN_CLASS_NAME" value="com.nwt.billings.BillingsApplicationTests" />
+      <option name="METHOD_NAME" value="kreirajZakupnninu_INVALID_404" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BillingsApplicationTests.kreirajZakupnninu_VALID" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Billings" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.nwt.billings.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.nwt.billings" />
+      <option name="MAIN_CLASS_NAME" value="com.nwt.billings.BillingsApplicationTests" />
+      <option name="METHOD_NAME" value="kreirajZakupnninu_VALID" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="BillingsControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Billings" />
       <extension name="coverage">
@@ -56,54 +104,6 @@
       <option name="PACKAGE_NAME" value="com.nwt.billings.test" />
       <option name="MAIN_CLASS_NAME" value="com.nwt.billings.test.BillingsControllerTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BillingsControllerTest.kreirajZakupninu_vrati400" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Billings" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.nwt.billings.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.nwt.billings.test" />
-      <option name="MAIN_CLASS_NAME" value="com.nwt.billings.test.BillingsControllerTest" />
-      <option name="METHOD_NAME" value="kreirajZakupninu_vrati400" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BillingsControllerTest.kreirajZakupninu_vrati401" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Billings" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.nwt.billings.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.nwt.billings.test" />
-      <option name="MAIN_CLASS_NAME" value="com.nwt.billings.test.BillingsControllerTest" />
-      <option name="METHOD_NAME" value="kreirajZakupninu_vrati401" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BillingsControllerTest.kreirajZakupninu_vrati403" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Billings" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.nwt.billings.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.nwt.billings.test" />
-      <option name="MAIN_CLASS_NAME" value="com.nwt.billings.test.BillingsControllerTest" />
-      <option name="METHOD_NAME" value="kreirajZakupninu_vrati403" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -130,11 +130,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.BillingsApplicationTests" />
+        <item itemvalue="JUnit.BillingsApplicationTests.kreirajZakupnninu_INVALID_404" />
+        <item itemvalue="JUnit.BillingsApplicationTests.kreirajZakupnninu_VALID" />
         <item itemvalue="JUnit.BillingsControllerTest" />
         <item itemvalue="Spring Boot.ServiceRegistrationAndDiscoveryClientApplication" />
-        <item itemvalue="JUnit.BillingsControllerTest.kreirajZakupninu_vrati400" />
-        <item itemvalue="JUnit.BillingsControllerTest.kreirajZakupninu_vrati401" />
-        <item itemvalue="JUnit.BillingsControllerTest.kreirajZakupninu_vrati403" />
       </list>
     </recent_temporary>
   </component>
@@ -180,29 +180,46 @@
     </state>
     <state x="2589" y="38" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586461761713" />
     <state x="446" y="25" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1585851953719" />
-    <state x="421" y="96" key="FileChooserDialogImpl" timestamp="1585896996809">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="2552" y="147" key="FileChooserDialogImpl" timestamp="1586801705871">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="421" y="96" key="FileChooserDialogImpl/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1585896996809" />
-    <state width="1307" height="287" key="GridCell.Tab.0.bottom" timestamp="1586793094023">
+    <state x="2552" y="147" key="FileChooserDialogImpl/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586801705871" />
+    <state width="1294" height="287" key="GridCell.Tab.0.bottom" timestamp="1586805045540">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.0.bottom/0.0.1280.680/1920.-273.1920.1040@1920.-273.1920.1040" timestamp="1585259679470" />
     <state width="1237" height="346" key="GridCell.Tab.0.bottom/0.0.1280.680/1920.0.1920.1040@0.0.1280.680" timestamp="1585898332547" />
-    <state width="1307" height="287" key="GridCell.Tab.0.bottom/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586793094023" />
+    <state width="1294" height="287" key="GridCell.Tab.0.bottom/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586805045540" />
     <state width="1237" height="168" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1585926070893" />
     <state width="1878" height="276" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1280.1024@0.0.1920.1040" timestamp="1586468527239" />
-    <state width="1307" height="287" key="GridCell.Tab.0.center" timestamp="1586793094023">
+    <state width="1294" height="287" key="GridCell.Tab.0.center" timestamp="1586805045539">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1307" height="287" key="GridCell.Tab.0.center/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586793094023" />
-    <state width="1307" height="287" key="GridCell.Tab.0.left" timestamp="1586793094023">
+    <state width="1294" height="287" key="GridCell.Tab.0.center/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586805045539" />
+    <state width="1294" height="287" key="GridCell.Tab.0.left" timestamp="1586805045539">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1307" height="287" key="GridCell.Tab.0.left/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586793094023" />
-    <state width="1307" height="287" key="GridCell.Tab.0.right" timestamp="1586793094023">
+    <state width="1294" height="287" key="GridCell.Tab.0.left/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586805045539" />
+    <state width="1294" height="287" key="GridCell.Tab.0.right" timestamp="1586805045540">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1307" height="287" key="GridCell.Tab.0.right/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586793094023" />
+    <state width="1294" height="287" key="GridCell.Tab.0.right/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586805045540" />
+    <state width="1294" height="287" key="GridCell.Tab.1.bottom" timestamp="1586805045540">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1294" height="287" key="GridCell.Tab.1.bottom/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586805045540" />
+    <state width="1294" height="287" key="GridCell.Tab.1.center" timestamp="1586805045540">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1294" height="287" key="GridCell.Tab.1.center/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586805045540" />
+    <state width="1294" height="287" key="GridCell.Tab.1.left" timestamp="1586805045540">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1294" height="287" key="GridCell.Tab.1.left/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586805045540" />
+    <state width="1294" height="287" key="GridCell.Tab.1.right" timestamp="1586805045540">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1294" height="287" key="GridCell.Tab.1.right/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1586805045540" />
   </component>
 </project>

@@ -87,7 +87,7 @@ public class BillingsController {
         ValidacijskiHelper.provjeriDatum(zakupnina.getDatumSklapanjaUgovora(), zakupnina.getDatumRaskidaUgovora());
 
         // dobavi usera
-        var userResponseEntity = userKlijent.getUser(korisnikId);
+        var userResponseEntity = userKlijent.getUser(zakupnina.getKorisnikId());
         if (userResponseEntity.getStatusCode() != HttpStatus.OK) {
             throw new ResponseStatusException(
                     userResponseEntity.getStatusCode(), "Greska na user klijentu.");
