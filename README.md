@@ -1,5 +1,5 @@
 # Lockbox Storage Lockers
-> Radi se o web aplikaciji koja olakšava rad skladišta (skladišnih jedinica). Posjetiocima stranice se nudi pregled skladišta, trenutno slobodnih skladišnih jedinica, cjenovnik, i sistem za zakupninu skladišne jedinice. Korisnicima se nudi pregled svojih trenutno zakupljenih skladišnih jedinica, kao i predmeta koji se nalaze u njima. Nude se skladišta različitih kapaciteta (pa i cijena). Uposlenicima se nudi opcija dodavanja novih skladišnih jedinica, u slučaju proširivanja skladišta.
+> Radi se o web aplikaciji koja olakšava rad skladišta (skladišnih jedinica). Posjetiocima stranice se nudi pregled skladišta, trenutno slobodnih skladišnih jedinica, cjenovnik, i sistem za zakupninu skladišne jedinice. Korisnicima se nudi pregled svojih trenutno zakupljenih skladišnih jedinica. Nude se skladišta različitih kapaciteta (pa i cijena). Uposlenicima se nudi opcija dodavanja novih skladišnih jedinica, u slučaju proširivanja skladišta.
 
 ## Pokretanje
 1. U service-registration-and-discovery-service projektu pokrenuti [Eureka server](service-registration-and-discovery-service/src/main/java/com/nwt/serviceregistrationanddiscoveryservice/ServiceRegistrationAndDiscoveryServiceApplication.java) za registraciju servisa
