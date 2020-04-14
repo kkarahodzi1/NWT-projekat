@@ -137,7 +137,7 @@ public class SkladJedService
         {
             HttpHeaders header = new HttpHeaders();
             header.setContentType(MediaType.APPLICATION_JSON);
-            return new ResponseEntity<>("{\"errmsg\" : \"Serverska greška\", \"original\":\"" + e.getCause().getMessage().replace("\"", "") + "\"}", header, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("{\"errmsg\" : \"Serverska greška\"}", header, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

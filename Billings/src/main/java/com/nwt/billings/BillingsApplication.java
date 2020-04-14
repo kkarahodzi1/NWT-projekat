@@ -30,6 +30,7 @@ public class BillingsApplication {
             // save a few customers
             repo.save(new Zakupnina((long)13, (long)2, (long)123, (long)2, new Date(), new Date(), new Date(), new Date(), new Date(), Boolean.TRUE, Boolean.FALSE, 100.2));
             repo.save(new Zakupnina((long)14, (long)2, (long)123, (long)2, new Date(), new Date(), new Date(), new Date(), new Date(), Boolean.TRUE, Boolean.FALSE, 120.5));
+            repo.save(new Zakupnina((long)15, (long)1, (long)8, (long)1, new Date(), new Date(), new Date(), new Date(), new Date(), Boolean.TRUE, Boolean.FALSE, 120.5));
             // fetch all customers
             log.info("Sve zakupnine, findAll():");
             log.info("-------------------------------");
