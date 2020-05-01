@@ -13,6 +13,10 @@ import com.nwt.storagecontrol.repos.SkladJedRepository;
 import com.nwt.storagecontrol.repos.SkladisteRepository;
 import com.nwt.storagecontrol.repos.TipoviRepository;
 import com.nwt.storagecontrol.service.SkladJedService;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+import org.nwt.notifications.AkcijaRequest;
+import org.nwt.notifications.AkcijaServiceGrpc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,37 +47,84 @@ public class SkladJedController
         this.skladJedService = skladJedService;
     }
 
+    public void LogAkcija(AkcijaRequest akcijaRequest)
+    {
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8084)
+                .usePlaintext()
+                .build();
+
+        AkcijaServiceGrpc.AkcijaServiceBlockingStub stub
+                = AkcijaServiceGrpc.newBlockingStub(channel);
+        stub.akcija(akcijaRequest);
+        channel.shutdown();
+    }
+
     @GetMapping("/skladjed")
     public ResponseEntity<Object> getAllSkladJedinice(@RequestParam(required = false) Skladiste skladiste, Integer broj, Tipovi tip) //id skladista
     {
-        return skladJedService.getAllSkladJedinice(skladiste,broj,tip);
+        ResponseEntity<Object> zahtjev = skladJedService.getAllSkladJedinice(skladiste,broj,tip);
+        LogAkcija(AkcijaRequest.newBuilder()
+                .setMikroservis("Storage")
+                .setTip(AkcijaRequest.Tip.GET)
+                .setResurs("Skladisne jedinice")
+                .setOdgovor(zahtjev.getStatusCodeValue()/100 == 2 ? AkcijaRequest.Odgovor.SUCCESS : AkcijaRequest.Odgovor.FAILURE)
+                .build());
+        return zahtjev;
     }
 
     @GetMapping("/skladjed/{id}")
     public ResponseEntity<Object> getSkladJediniceById(@PathVariable("id") long id)
     {
-        return skladJedService.getSkladJediniceById(id);
+        ResponseEntity<Object> zahtjev = skladJedService.getSkladJediniceById(id);
+        LogAkcija(AkcijaRequest.newBuilder()
+                .setMikroservis("Storage")
+                .setTip(AkcijaRequest.Tip.GET)
+                .setResurs("Skladisne jedinice")
+                .setOdgovor(zahtjev.getStatusCodeValue()/100 == 2 ? AkcijaRequest.Odgovor.SUCCESS : AkcijaRequest.Odgovor.FAILURE)
+                .build());
+        return zahtjev;
     }
 
 
     @PostMapping("/skladjed")
     public ResponseEntity<Object> createSkladJedinice(@RequestBody String obj)
     {
-        return skladJedService.createSkladJedinice(obj);
+        ResponseEntity<Object> zahtjev = skladJedService.createSkladJedinice(obj);
+        LogAkcija(AkcijaRequest.newBuilder()
+                .setMikroservis("Storage")
+                .setTip(AkcijaRequest.Tip.CREATE)
+                .setResurs("Skladisne jedinice")
+                .setOdgovor(zahtjev.getStatusCodeValue()/100 == 2 ? AkcijaRequest.Odgovor.SUCCESS : AkcijaRequest.Odgovor.FAILURE)
+                .build());
+        return zahtjev;
     }
 
 
     @PutMapping("/skladjed/{id}")
     public ResponseEntity<Object> updateSkladJedinice(@PathVariable("id") long id, @RequestBody String tip)
     {
-        return skladJedService.updateSkladJedinice(id,tip);
+        ResponseEntity<Object> zahtjev = skladJedService.updateSkladJedinice(id,tip);
+        LogAkcija(AkcijaRequest.newBuilder()
+                .setMikroservis("Storage")
+                .setTip(AkcijaRequest.Tip.UPDATE)
+                .setResurs("Skladisne jedinice")
+                .setOdgovor(zahtjev.getStatusCodeValue()/100 == 2 ? AkcijaRequest.Odgovor.SUCCESS : AkcijaRequest.Odgovor.FAILURE)
+                .build());
+        return zahtjev;
     }
 
 
     @DeleteMapping("/skladjed/{id}")
     public ResponseEntity<Object> deleteSkladJedinice(@PathVariable("id") long id)
     {
-        return skladJedService.deleteSkladJedinice(id);
+        ResponseEntity<Object> zahtjev = skladJedService.deleteSkladJedinice(id);
+        LogAkcija(AkcijaRequest.newBuilder()
+                .setMikroservis("Storage")
+                .setTip(AkcijaRequest.Tip.DELETE)
+                .setResurs("Skladisne jedinice")
+                .setOdgovor(zahtjev.getStatusCodeValue()/100 == 2 ? AkcijaRequest.Odgovor.SUCCESS : AkcijaRequest.Odgovor.FAILURE)
+                .build());
+        return zahtjev;
     }
 
 

@@ -52,35 +52,62 @@ public class TipoviController
     public ResponseEntity<Object> getAllTipovi(@RequestParam(required = false) String naziv)
     {
         ResponseEntity<Object> zahtjev = tipoviService.getAll(naziv);
-
         LogAkcija(AkcijaRequest.newBuilder()
                 .setMikroservis("Storage")
                 .setTip(AkcijaRequest.Tip.GET)
                 .setResurs("Tipovi")
                 .setOdgovor(zahtjev.getStatusCodeValue()/100 == 2 ? AkcijaRequest.Odgovor.SUCCESS : AkcijaRequest.Odgovor.FAILURE)
                 .build());
-
         return zahtjev;
     }
 
     @GetMapping("/tipovi/{id}")
     public ResponseEntity<Object> getTipoviById(@PathVariable("id") long id) {
-        return tipoviService.getById(id);
+
+        ResponseEntity<Object> zahtjev = tipoviService.getById(id);
+        LogAkcija(AkcijaRequest.newBuilder()
+                .setMikroservis("Storage")
+                .setTip(AkcijaRequest.Tip.GET)
+                .setResurs("Tipovi")
+                .setOdgovor(zahtjev.getStatusCodeValue()/100 == 2 ? AkcijaRequest.Odgovor.SUCCESS : AkcijaRequest.Odgovor.FAILURE)
+                .build());
+        return zahtjev;
     }
 
     @PostMapping("/tipovi")
     public ResponseEntity<Object> createTip(@RequestBody Tipovi tipovi) {
-        return tipoviService.createTip(tipovi);
+        ResponseEntity<Object> zahtjev = tipoviService.createTip(tipovi);
+        LogAkcija(AkcijaRequest.newBuilder()
+                .setMikroservis("Storage")
+                .setTip(AkcijaRequest.Tip.CREATE)
+                .setResurs("Tipovi")
+                .setOdgovor(zahtjev.getStatusCodeValue()/100 == 2 ? AkcijaRequest.Odgovor.SUCCESS : AkcijaRequest.Odgovor.FAILURE)
+                .build());
+        return zahtjev;
     }
 
     @DeleteMapping("/tipovi")
     public ResponseEntity<Object> deleteByNaziv(@RequestParam(required = true) String naziv) {
-        return tipoviService.deleteByNaziv(naziv);
+        ResponseEntity<Object> zahtjev = tipoviService.deleteByNaziv(naziv);
+        LogAkcija(AkcijaRequest.newBuilder()
+                .setMikroservis("Storage")
+                .setTip(AkcijaRequest.Tip.DELETE)
+                .setResurs("Tipovi")
+                .setOdgovor(zahtjev.getStatusCodeValue()/100 == 2 ? AkcijaRequest.Odgovor.SUCCESS : AkcijaRequest.Odgovor.FAILURE)
+                .build());
+        return zahtjev;
     }
 
     @DeleteMapping("/tipovi/{id}")
     public ResponseEntity<Object> deleteTip(@PathVariable("id") long id) {
-        return tipoviService.deleteTip(id);
+        ResponseEntity<Object> zahtjev =  tipoviService.deleteTip(id);
+        LogAkcija(AkcijaRequest.newBuilder()
+                .setMikroservis("Storage")
+                .setTip(AkcijaRequest.Tip.DELETE)
+                .setResurs("Tipovi")
+                .setOdgovor(zahtjev.getStatusCodeValue()/100 == 2 ? AkcijaRequest.Odgovor.SUCCESS : AkcijaRequest.Odgovor.FAILURE)
+                .build());
+        return zahtjev;
     }
 
 
