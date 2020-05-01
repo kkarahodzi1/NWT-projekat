@@ -2,6 +2,11 @@ package com.nwt.usercontrol;
 
 import com.nwt.usercontrol.model.User;
 import com.nwt.usercontrol.repos.UserRepository;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+import org.nwt.notifications.AkcijaRequest;
+import org.nwt.notifications.AkcijaResponse;
+import org.nwt.notifications.AkcijaServiceGrpc;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.slf4j.Logger;
@@ -18,8 +23,31 @@ public class UsercontrolApplication {
 
     private static final Logger log = LoggerFactory.getLogger(UsercontrolApplication.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         SpringApplication.run(UsercontrolApplication.class, args);
+
+        log.info("RADI");
+
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8084)
+                .usePlaintext()
+                .build();
+
+        AkcijaServiceGrpc.AkcijaServiceBlockingStub stub
+                = AkcijaServiceGrpc.newBlockingStub(channel);
+
+
+        AkcijaResponse akcijaResponse = stub.akcija(AkcijaRequest.newBuilder()
+                .setMikroservis("Usercontrol")
+                .setTip(AkcijaRequest.Tip.CREATE)
+                .setResurs("Korisnik")
+                .setOdgovor(AkcijaRequest.Odgovor.SUCCESS)
+                .build());
+
+        log.info(akcijaResponse.getOdgovor());
+
+        channel.shutdown();
+
     }
 
     @Bean
