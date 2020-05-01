@@ -3,6 +3,11 @@ package com.nwt.storagecontrol.controller;
 import java.util.List;
 
 import com.nwt.storagecontrol.service.TipoviService;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+import org.nwt.notifications.AkcijaRequest;
+import org.nwt.notifications.AkcijaResponse;
+import org.nwt.notifications.AkcijaServiceGrpc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +36,31 @@ public class TipoviController
         this.tipoviService = tipoviService;
     }
 
+    public void LogAkcija(AkcijaRequest akcijaRequest)
+    {
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8084)
+                .usePlaintext()
+                .build();
+
+        AkcijaServiceGrpc.AkcijaServiceBlockingStub stub
+                = AkcijaServiceGrpc.newBlockingStub(channel);
+        stub.akcija(akcijaRequest);
+        channel.shutdown();
+    }
+
     @GetMapping("/tipovi")
     public ResponseEntity<Object> getAllTipovi(@RequestParam(required = false) String naziv)
     {
-        return tipoviService.getAll(naziv);
+        ResponseEntity<Object> zahtjev = tipoviService.getAll(naziv);
+
+        LogAkcija(AkcijaRequest.newBuilder()
+                .setMikroservis("Storage")
+                .setTip(AkcijaRequest.Tip.GET)
+                .setResurs("Tipovi")
+                .setOdgovor(zahtjev.getStatusCodeValue()/100 == 2 ? AkcijaRequest.Odgovor.SUCCESS : AkcijaRequest.Odgovor.FAILURE)
+                .build());
+
+        return zahtjev;
     }
 
     @GetMapping("/tipovi/{id}")

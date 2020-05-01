@@ -1,11 +1,17 @@
 package com.nwt.storagecontrol;
 
+import com.google.protobuf.Timestamp;
 import com.nwt.storagecontrol.model.SkladisneJedinice;
 import com.nwt.storagecontrol.model.Skladiste;
 import com.nwt.storagecontrol.model.Tipovi;
 import com.nwt.storagecontrol.repos.SkladJedRepository;
 import com.nwt.storagecontrol.repos.SkladisteRepository;
 import com.nwt.storagecontrol.repos.TipoviRepository;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+import org.nwt.notifications.AkcijaRequest;
+import org.nwt.notifications.AkcijaResponse;
+import org.nwt.notifications.AkcijaServiceGrpc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -20,10 +26,33 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class StoragecontrolApplication {
 
+
     private static final Logger log = LoggerFactory.getLogger(StoragecontrolApplication.class);
 
     public static void main(String[] args) {
+
         SpringApplication.run(StoragecontrolApplication.class, args);
+
+        log.info("RADI");
+
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8084)
+                .usePlaintext()
+                .build();
+
+        AkcijaServiceGrpc.AkcijaServiceBlockingStub stub
+                = AkcijaServiceGrpc.newBlockingStub(channel);
+
+
+        AkcijaResponse akcijaResponse = stub.akcija(AkcijaRequest.newBuilder()
+                .setMikroservis("Storage")
+                .setTip(AkcijaRequest.Tip.CREATE)
+                .setResurs("Skladista")
+                .setOdgovor(AkcijaRequest.Odgovor.SUCCESS)
+                .build());
+
+        log.info(akcijaResponse.getOdgovor());
+
+        channel.shutdown();
     }
 
     @Bean
