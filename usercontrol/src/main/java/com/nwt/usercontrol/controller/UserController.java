@@ -66,6 +66,7 @@ public class UserController {
     }
 
     // Dodaj novog korisnika
+    @CrossOrigin(origins = "http://localhost:4200/users")
     @PostMapping("/users")
     ResponseEntity<Object> newUser(@Valid @RequestBody User newUser)
     {
