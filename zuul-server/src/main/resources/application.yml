@@ -1,0 +1,17 @@
+zuul:
+  routes:
+    skladista:
+      path: /skladista/**
+      url: http://localhost:8083/api/skladista
+    tipovi:
+      path: /tipovi/**
+      url: http://localhost:8083/api/tipovi
+    skladisne-jedinice:
+      path: /skladjed/**
+      url: http://localhost:8083/api/skladjed
+    korisnici:
+      path: /users/**
+      url: http://localhost:8082/api/users
+    zakupnine:
+      path: /billings/**
+      url: http://localhost:8080/api/billings
