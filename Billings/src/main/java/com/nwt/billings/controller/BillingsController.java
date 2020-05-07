@@ -9,7 +9,11 @@ import com.nwt.billings.model.Zakupnina;
 import com.nwt.billings.repos.ZakupninaRepo;
 import com.nwt.billings.services.ZakupninaServis;
 import feign.FeignException;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 import org.json.JSONObject;
+import org.nwt.notifications.AkcijaRequest;
+import org.nwt.notifications.AkcijaServiceGrpc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpStatus;
@@ -39,6 +43,18 @@ public class BillingsController {
         this.userKlijent = userKlijent;
     }
 
+    public void LogAkcija(AkcijaRequest akcijaRequest)
+    {
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8084)
+                .usePlaintext()
+                .build();
+
+        AkcijaServiceGrpc.AkcijaServiceBlockingStub stub
+                = AkcijaServiceGrpc.newBlockingStub(channel);
+        stub.akcija(akcijaRequest);
+        channel.shutdown();
+    }
+
     @GetMapping("/billings/{korisnikId}/korisnik")
     List<Zakupnina> pregledZakupninaKorisnika(@PathVariable Long korisnikId) {
 
@@ -47,7 +63,16 @@ public class BillingsController {
                     HttpStatus.BAD_REQUEST, "Pogresan id korisnika");
         }
 
-        return servis.dobaviZakupnineKorisnika(korisnikId);
+        var response = servis.dobaviZakupnineKorisnika(korisnikId);
+
+        LogAkcija(AkcijaRequest.newBuilder()
+                .setMikroservis("Billings")
+                .setTip(AkcijaRequest.Tip.GET)
+                .setResurs("Zakupnine")
+                .setOdgovor(AkcijaRequest.Odgovor.SUCCESS)
+                .build());
+
+        return response;
     }
 
     @GetMapping("/billings/{jedinicaId}/jedinica")
@@ -58,7 +83,16 @@ public class BillingsController {
                     HttpStatus.BAD_REQUEST, "Pogresan id jedinice.");
         }
 
-        return servis.dobaviZakupninePoJedinici(jedinicaId);
+        var response =  servis.dobaviZakupninePoJedinici(jedinicaId);
+
+        LogAkcija(AkcijaRequest.newBuilder()
+                .setMikroservis("Billings")
+                .setTip(AkcijaRequest.Tip.GET)
+                .setResurs("Zakupnine")
+                .setOdgovor(AkcijaRequest.Odgovor.SUCCESS)
+                .build());
+
+        return response;
     }
 
     @DeleteMapping("/billings/{id}")
@@ -73,7 +107,25 @@ public class BillingsController {
 
         ValidacijskiHelper.provjeriPristup(id, korisnikId, korisnikRola);
 
-        servis.obrisiZakupninu(id);
+        try
+        {
+            servis.obrisiZakupninu(id);
+        }
+        catch(Exception e){
+            LogAkcija(AkcijaRequest.newBuilder()
+                    .setMikroservis("Billings")
+                    .setTip(AkcijaRequest.Tip.DELETE)
+                    .setResurs("Zakupnine")
+                    .setOdgovor(AkcijaRequest.Odgovor.FAILURE)
+                    .build());
+        }
+
+        LogAkcija(AkcijaRequest.newBuilder()
+                .setMikroservis("Billings")
+                .setTip(AkcijaRequest.Tip.DELETE)
+                .setResurs("Zakupnine")
+                .setOdgovor(AkcijaRequest.Odgovor.SUCCESS)
+                .build());
     }
 
     @PostMapping("/billings")
@@ -101,9 +153,24 @@ public class BillingsController {
         var response = notificationsKlijent.posaljiZakupninaZahtjev(new Poruka(user.getIme(), user.getPrezime(), user.getMail()), rez.getId());
 
         if (response.getStatusCode() == HttpStatus.OK) {
+
+            LogAkcija(AkcijaRequest.newBuilder()
+                    .setMikroservis("Billings")
+                    .setTip(AkcijaRequest.Tip.CREATE)
+                    .setResurs("Zakupnine")
+                    .setOdgovor(AkcijaRequest.Odgovor.SUCCESS)
+                    .build());
+
             return new ResponseEntity<Zakupnina>(rez,
                     HttpStatus.OK);
         }
+
+        LogAkcija(AkcijaRequest.newBuilder()
+                .setMikroservis("Billings")
+                .setTip(AkcijaRequest.Tip.CREATE)
+                .setResurs("Zakupnine")
+                .setOdgovor(AkcijaRequest.Odgovor.FAILURE)
+                .build());
 
         throw new ResponseStatusException(
                 response.getStatusCode(), response.getBody());
@@ -117,6 +184,15 @@ public class BillingsController {
         ValidacijskiHelper.provjeriPristup(zakupnina.getKorisnikId(), korisnikId, korisnikRola);
 
         ValidacijskiHelper.provjeriDatum(zakupnina.getDatumSklapanjaUgovora(), zakupnina.getDatumRaskidaUgovora());
+
+        var response = servis.kreirajZakupninu(zakupnina);
+
+        LogAkcija(AkcijaRequest.newBuilder()
+                .setMikroservis("Billings")
+                .setTip(AkcijaRequest.Tip.UPDATE)
+                .setResurs("Zakupnine")
+                .setOdgovor(AkcijaRequest.Odgovor.SUCCESS)
+                .build());
 
         return new ResponseEntity<Zakupnina>(servis.kreirajZakupninu(zakupnina),
                 HttpStatus.OK);

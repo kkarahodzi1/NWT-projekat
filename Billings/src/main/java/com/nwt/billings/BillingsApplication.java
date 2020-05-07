@@ -2,6 +2,11 @@ package com.nwt.billings;
 
 import com.nwt.billings.model.Zakupnina;
 import com.nwt.billings.repos.ZakupninaRepo;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+import org.nwt.notifications.AkcijaRequest;
+import org.nwt.notifications.AkcijaResponse;
+import org.nwt.notifications.AkcijaServiceGrpc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -22,6 +27,26 @@ public class BillingsApplication {
     private static final Logger log = LoggerFactory.getLogger(BillingsApplication.class);
     public static void main(String[] args) {
         SpringApplication.run(BillingsApplication.class, args);
+
+        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8084)
+                .usePlaintext()
+                .build();
+
+        AkcijaServiceGrpc.AkcijaServiceBlockingStub stub
+                = AkcijaServiceGrpc.newBlockingStub(channel);
+
+
+        AkcijaResponse akcijaResponse = stub.akcija(AkcijaRequest.newBuilder()
+                .setMikroservis("Billings")
+                .setTip(AkcijaRequest.Tip.CREATE)
+                .setResurs("Zakupnine")
+                .setOdgovor(AkcijaRequest.Odgovor.SUCCESS)
+                .build());
+
+        log.info(akcijaResponse.getOdgovor());
+
+        channel.shutdown();
+
     }
 
     @Bean
