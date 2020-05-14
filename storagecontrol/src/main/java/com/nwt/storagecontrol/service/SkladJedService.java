@@ -10,6 +10,7 @@ import com.nwt.storagecontrol.model.*;
 import com.nwt.storagecontrol.repos.SkladJedRepository;
 import com.nwt.storagecontrol.repos.SkladisteRepository;
 import com.nwt.storagecontrol.repos.TipoviRepository;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JsonParser;
 import org.springframework.boot.json.JsonParserFactory;
@@ -24,6 +25,13 @@ import java.util.*;
 @Service
 public class SkladJedService
 {
+    @Autowired
+    private AmqpTemplate amqpTemplate;
+
+    private String EXCHANGE = "storage-exchange";
+
+    private String ROUTING_KEY = "storage";
+
     @Autowired
     SkladJedRepository skladJedRepository;
     @Autowired
@@ -143,8 +151,14 @@ public class SkladJedService
 
     public ResponseEntity<Object> deleteSkladJedinice(long id) {
         try {
-            skladJedRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+            SkladisneJedinice skladjed = skladJedRepository.findById(id).get();
+            skladjed.setDatumBrisanja(new Date());
+            skladjed.setObrisan(Boolean.TRUE);
+            skladJedRepository.save(skladjed);
+            String delBilling = "B" + id;
+            amqpTemplate.convertAndSend(EXCHANGE, ROUTING_KEY,delBilling);
+            return new ResponseEntity<>(HttpStatus.PROCESSING);
         } catch (Exception e)
         {
             HttpHeaders header = new HttpHeaders();
