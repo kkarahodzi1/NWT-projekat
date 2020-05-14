@@ -30,4 +30,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("update User u set u.datumBrisanja = ?2, u.obrisan = 1 where u.korisnikId = ?1")
     void softDeleteById(Long id, Date datumBrisanja);
 
+    User findByMail(String mail);
+
 }

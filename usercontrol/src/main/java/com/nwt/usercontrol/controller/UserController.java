@@ -16,6 +16,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
@@ -68,6 +69,7 @@ public class UserController {
     // Dodaj novog korisnika
     @CrossOrigin(origins = "http://localhost:4200/users")
     @PostMapping("/users")
+    @PreAuthorize("hasAuthority('ADMIN')")
     ResponseEntity<Object> newUser(@Valid @RequestBody User newUser)
     {
      ResponseEntity<Object> zahtjev = serv.addNew(newUser);
@@ -99,6 +101,7 @@ public class UserController {
 
     // Update korisnika (ili dodavanje novog ako nema)
     @PutMapping("/users/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     ResponseEntity<Object> replaceUser(@Valid @RequestBody User newUser, @Min(1) @PathVariable Long id)
     {
      ResponseEntity<Object> zahtjev = serv.modify(newUser, id);
@@ -115,6 +118,7 @@ public class UserController {
 
     // Brisanje korisnika
     @DeleteMapping("/users/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     ResponseEntity<Object> deleteUser(@Min(1) @PathVariable Long id)
     {
      ResponseEntity<Object> zahtjev = serv.softDelete(id);
