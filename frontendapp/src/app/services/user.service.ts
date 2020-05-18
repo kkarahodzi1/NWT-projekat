@@ -23,6 +23,12 @@ constructor(private http: HttpClient) {
         // isto vazi kao i gore, prvo prilagoditi URL i uraditi neke provjere itd, i onda na kraju raditi post
         return this.http.post<User>(this.usersUrl, user);
       }
+
+      // login pisati ovdje
+      public login(user: User){
+        console.log('RADIM LOGIN');
+        return user;
+      }
 }
 
 /*
