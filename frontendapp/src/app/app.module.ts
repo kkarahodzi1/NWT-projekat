@@ -12,6 +12,9 @@ import { AboutComponentComponent } from './about-component/about-component.compo
 import { ContactComponentComponent } from './contact-component/contact-component.component';
 import { UserService } from './services/user.service';
 
+// PAZNJA !!!!!
+// U OVAJ SMRDLJIVI FAJL SE NECE AUTOMATSKI DODATI IMPORTI KADA NAPRAVITE NESTO NOVO - MORATE IH DODATI RUCNO !!!!
+
 @NgModule({
    declarations: [
       AppComponent,
