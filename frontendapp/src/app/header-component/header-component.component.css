@@ -1,0 +1,31 @@
+  
+  /* Top Bar */
+  
+  .header {
+    width: 100%;
+    height: 78px;
+    background-color: #222121;
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header  h1, h3{
+    color: white;
+    margin: 1mm;
+  }
+  
+
+.fancy-button {
+    background-color: #2FADED;
+    color: #FFFFFF !important;
+    display: inline-block;
+    float: right;
+  }
+  
+  .header navbar-item{
+    color: white;
+    margin: 1mm;
+  }
