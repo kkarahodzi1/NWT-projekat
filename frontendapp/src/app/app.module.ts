@@ -12,6 +12,7 @@ import { AboutComponentComponent } from './about-component/about-component.compo
 import { ContactComponentComponent } from './contact-component/contact-component.component';
 import { UserService } from './services/user.service';
 import { UserviewComponent } from './userview/userview.component';
+import { RegisterComponentComponent } from './register-component/register-component.component';
 
 // PAZNJA !!!!!
 // U OVAJ SMRDLJIVI FAJL SE NECE AUTOMATSKI DODATI IMPORTI KADA NAPRAVITE NESTO NOVO - MORATE IH DODATI RUCNO !!!!
@@ -24,7 +25,8 @@ import { UserviewComponent } from './userview/userview.component';
       LoginComponentComponent,
       AboutComponentComponent,
       ContactComponentComponent,
-      UserviewComponent
+      UserviewComponent,
+      RegisterComponentComponent
    ],
    imports: [
       BrowserModule,
@@ -35,7 +37,8 @@ import { UserviewComponent } from './userview/userview.component';
          { path: '', component: LoginComponentComponent },
          { path: 'about', component: AboutComponentComponent },
          { path: 'contact', component: ContactComponentComponent },
-         { path: 'userview', component: UserviewComponent }
+         { path: 'userview', component: UserviewComponent },
+         { path: 'register', component: RegisterComponentComponent }
        ])
    ],
    providers: [

@@ -1,5 +1,6 @@
 package com.nwt.usercontrol.controller;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -13,11 +14,17 @@ import org.nwt.notifications.AkcijaRequest;
 import org.nwt.notifications.AkcijaServiceGrpc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -36,7 +43,15 @@ public class UserController {
     }
 
     UserController(){}
-
+/*
+ @RequestMapping(value= "/**", method=RequestMethod.OPTIONS)
+ public void corsHeaders(HttpServletResponse response) {
+  response.addHeader("Access-Control-Allow-Origin", "*");
+  response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  response.addHeader("Access-Control-Allow-Headers", "origin, content-type, accept, x-requested-with");
+  response.addHeader("Access-Control-Max-Age", "3600");
+ }
+*/
     // logging za gRPC
     public void LogAkcija(AkcijaRequest akcijaRequest)
     {
@@ -51,7 +66,7 @@ public class UserController {
     }
 
     // Dohvati sve korisnike
-    @GetMapping("/users")
+    @GetMapping("/secure/users")
     ResponseEntity<List<User>> all()
     {
      ResponseEntity<List<User>> zahtjev = serv.getAll();
@@ -67,9 +82,10 @@ public class UserController {
     }
 
     // Dodaj novog korisnika
-    @CrossOrigin(origins = "http://localhost:4200/users")
+
+    @CrossOrigin(origins = "http://localhost:4200/register", maxAge = 3600)
     @PostMapping("/users")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    //@PreAuthorize("hasAuthority('ADMIN')")
     ResponseEntity<Object> newUser(@Valid @RequestBody User newUser)
     {
      ResponseEntity<Object> zahtjev = serv.addNew(newUser);
@@ -85,7 +101,7 @@ public class UserController {
     }
 
     // Dohvati korisnika sa odgovarajucim ID
-    @GetMapping("/users/{id}")
+    @GetMapping("/secure/users/{id}")
     ResponseEntity<Object>  one(@Min(1) @PathVariable Long id)
     {
      ResponseEntity<Object> zahtjev = serv.getOne(id);
@@ -100,7 +116,7 @@ public class UserController {
     }
 
     // Update korisnika (ili dodavanje novog ako nema)
-    @PutMapping("/users/{id}")
+    @PutMapping("/secure/users/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     ResponseEntity<Object> replaceUser(@Valid @RequestBody User newUser, @Min(1) @PathVariable Long id)
     {
@@ -117,7 +133,7 @@ public class UserController {
     }
 
     // Brisanje korisnika
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/secure/users/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     ResponseEntity<Object> deleteUser(@Min(1) @PathVariable Long id)
     {
@@ -134,7 +150,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/users/billings/{id}")
+    @GetMapping("/secure/users/billings/{id}")
     ResponseEntity<Object> getBillingsbyId(@PathVariable Long id)
     {
      ResponseEntity<Object> zahtjev = serv.getBillings(id);

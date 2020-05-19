@@ -1,0 +1,24 @@
+<div class=register>
+  <h1 class="naslov">
+    Registracija
+  </h1>
+  <!--
+  <img width="400" src="https://i.ytimg.com/vi/CZFKWt3S2Ys/maxresdefault.jpg">
+  -->
+  <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="register(loginForm.value)">
+
+    <label for="inputName" class="sr-only">Name</label>
+    <input type="text" id="inputName" class="form-control" placeholder="Ime" required autofocus formControlName="name">
+  
+    <label for="inputLName" class="sr-only">Last Name</label>
+    <input type="text" id="inputLName" class="form-control" placeholder="Prezime" required autofocus formControlName="lname">
+
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="email" id="inputEmail" class="form-control" placeholder="E-mail adresa" required autofocus formControlName="email">
+
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Sifra" required formControlName="password">
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Registracija</button>
+  </form>
+  </div>

@@ -19,8 +19,12 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.security.Principal;
+import java.util.Arrays;
 
 
 @EnableAuthorizationServer
@@ -84,4 +88,6 @@ public class UsercontrolApplication {
             log.info("");
         };
     }
+
+
 }

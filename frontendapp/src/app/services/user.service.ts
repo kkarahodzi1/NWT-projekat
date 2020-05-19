@@ -3,11 +3,14 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'; // z
 import { Observable } from 'rxjs/Observable';
 
 import { User } from '../models/user'; // importuje user klasu koju smo napravili
+import { c } from '@angular/core/src/render3';
 
 @Injectable()
 export class UserService {
     private usersUrl: string; // atribut koji cuva http path
     private OAuthURL: string; // atribut koji cuva http path
+  
+    
 constructor(private http: HttpClient) {
     this.usersUrl = 'http://localhost:8762/user/api/users'; // promijeniti na onaj URL koji nas vodi do korijena user API-ja
     this.OAuthURL = 'http://localhost:8762/user/oauth/token';
@@ -22,12 +25,33 @@ constructor(private http: HttpClient) {
 
     // dodaje novog usera, ovo mozemo koristiti prilikom registracije novog korisnika
     public save(user: User) {
-        // isto vazi kao i gore, prvo prilagoditi URL i uraditi neke provjere itd, i onda na kraju raditi post
-        return this.http.post<User>(this.usersUrl, user);
+
+        console.log(user.ime);
+        console.log(user.prezime);
+        console.log(user.mail);
+        console.log(user.password);
+
+       // const body = new HttpParams()
+        const body = JSON.stringify(user);
+      /*  .set('ime', user.ime)
+        .set('prezime', user.prezime)
+        .set('password', user.password)
+        .set('mail', user.mail);*/
+        /*.set('grant_type', 'password')
+        .set('client-id', 'admin-client');*/
+
+        const headers = {
+        //  'Authorization': 'Basic ' + btoa('admin-client:admin'),
+          'Content-type': 'application/json'
+        };
+
+        console.log(body);
+       // return this.http.post<User>(this.usersUrl, user);
+        return this.http.post<User>(this.usersUrl, body, {headers});
       }
 
       // login pisati ovdje
-      public login(user: User){
+      public login(user: User) {
 
 
         const body = new HttpParams()
@@ -39,7 +63,7 @@ constructor(private http: HttpClient) {
         const headers = {
           'Authorization': 'Basic ' + btoa('admin-client:admin'),
           'Content-type': 'application/x-www-form-urlencoded'
-        }
+        };
         return this.http.post<User>(this.OAuthURL, body, {headers});
       }
 }

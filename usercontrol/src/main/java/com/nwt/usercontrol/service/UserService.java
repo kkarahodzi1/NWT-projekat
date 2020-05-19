@@ -80,6 +80,7 @@ public class UserService implements UserDetailsService {
             // ako se mail nije uspio poslati
             // sa ostatkom tima vidjeti sta raditi u tom slucaju
         }
+        newUser.setRole(0);
         return new ResponseEntity<Object>(repo.save(newUser), rsp, HttpStatus.CREATED);
     }
 
