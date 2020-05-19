@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http'; // za HTTP requests
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'; // za HTTP requests
 import { Observable } from 'rxjs/Observable';
 
 import { User } from '../models/user'; // importuje user klasu koju smo napravili
@@ -7,8 +7,10 @@ import { User } from '../models/user'; // importuje user klasu koju smo napravil
 @Injectable()
 export class UserService {
     private usersUrl: string; // atribut koji cuva http path
+    private OAuthURL: string; // atribut koji cuva http path
 constructor(private http: HttpClient) {
-    this.usersUrl = 'http://localhost:8762/users'; // promijeniti na onaj URL koji nas vodi do korijena user API-ja
+    this.usersUrl = 'http://localhost:8762/user/api/users'; // promijeniti na onaj URL koji nas vodi do korijena user API-ja
+    this.OAuthURL = 'http://localhost:8762/user/oauth/token';
 }
     // sada redamo metode koje hocemo da servis ima
 
@@ -26,8 +28,19 @@ constructor(private http: HttpClient) {
 
       // login pisati ovdje
       public login(user: User){
-        console.log('RADIM LOGIN');
-        return user;
+
+
+        const body = new HttpParams()
+        .set('username', user.mail)
+        .set('password', user.password)
+        .set('grant_type', 'password')
+        .set('client-id', 'admin-client');
+
+        const headers = {
+          'Authorization': 'Basic ' + btoa('admin-client:admin'),
+          'Content-type': 'application/x-www-form-urlencoded'
+        }
+        return this.http.post<User>(this.OAuthURL, body, {headers});
       }
 }
 

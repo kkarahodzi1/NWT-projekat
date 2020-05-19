@@ -12,7 +12,9 @@ import { UserService } from '../services/user.service';
 export class LoginComponentComponent implements OnInit {
   loginForm;
   user: User;
-  constructor(private formBuilder: FormBuilder, private userService: UserService) {
+  config;
+
+  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService) {
     this.loginForm = this.formBuilder.group({
       email: '',
       password: ''
@@ -27,8 +29,13 @@ export class LoginComponentComponent implements OnInit {
   login(data){
     this.user.mail = data.email;
     this.user.password = data.password;
-    this.userService.login(this.user);
-    console.log(this.user.mail);
+    this.userService.login(this.user).subscribe(data => {
+      window.sessionStorage.setItem('token', JSON.stringify(data));
+      console.log(window.sessionStorage.getItem('token'));
+      this.router.navigate(['userview']);
+    }, error => {
+        alert("Neispravni podaci")
+    });
     console.log(this.user.password);
   }
 }

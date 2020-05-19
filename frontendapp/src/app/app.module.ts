@@ -11,6 +11,7 @@ import { LoginComponentComponent } from './login-component/login-component.compo
 import { AboutComponentComponent } from './about-component/about-component.component';
 import { ContactComponentComponent } from './contact-component/contact-component.component';
 import { UserService } from './services/user.service';
+import { UserviewComponent } from './userview/userview.component';
 
 // PAZNJA !!!!!
 // U OVAJ SMRDLJIVI FAJL SE NECE AUTOMATSKI DODATI IMPORTI KADA NAPRAVITE NESTO NOVO - MORATE IH DODATI RUCNO !!!!
@@ -22,7 +23,8 @@ import { UserService } from './services/user.service';
       FooterComponentComponent,
       LoginComponentComponent,
       AboutComponentComponent,
-      ContactComponentComponent
+      ContactComponentComponent,
+      UserviewComponent
    ],
    imports: [
       BrowserModule,
@@ -30,12 +32,15 @@ import { UserService } from './services/user.service';
       RouterModule,
       ReactiveFormsModule,
       RouterModule.forRoot([
-        { path: '', component: LoginComponentComponent },
-        { path: 'about', component: AboutComponentComponent },
-        { path: 'contact', component: ContactComponentComponent },
-      ])
+         { path: '', component: LoginComponentComponent },
+         { path: 'about', component: AboutComponentComponent },
+         { path: 'contact', component: ContactComponentComponent },
+         { path: 'userview', component: UserviewComponent }
+       ])
    ],
-   providers: [UserService],
+   providers: [
+      UserService
+   ],
    bootstrap: [
       AppComponent
    ]
