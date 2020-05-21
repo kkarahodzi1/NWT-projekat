@@ -83,7 +83,7 @@ public class UserController {
 
     // Dodaj novog korisnika
 
-    @CrossOrigin(origins = "http://localhost:4200/register", maxAge = 3600)
+    @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
     @PostMapping("/users")
     //@PreAuthorize("hasAuthority('ADMIN')")
     ResponseEntity<Object> newUser(@Valid @RequestBody User newUser)

@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'; // za HTTP requests
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { User } from '../models/user'; // importuje user klasu koju smo napravili
-import { c } from '@angular/core/src/render3';
 
 @Injectable()
 export class UserService {
