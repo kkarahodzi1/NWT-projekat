@@ -13,6 +13,8 @@ import { ContactComponentComponent } from './contact-component/contact-component
 import { UserService } from './services/user.service';
 import { UserviewComponent } from './userview/userview.component';
 import { RegisterComponentComponent } from './register-component/register-component.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // PAZNJA !!!!!
 // U OVAJ SMRDLJIVI FAJL SE NECE AUTOMATSKI DODATI IMPORTI KADA NAPRAVITE NESTO NOVO - MORATE IH DODATI RUCNO !!!!
@@ -30,6 +32,8 @@ import { RegisterComponentComponent } from './register-component/register-compon
    ],
    imports: [
       BrowserModule,
+      BrowserAnimationsModule, 
+      ToastrModule.forRoot(),
       HttpClientModule,
       RouterModule,
       ReactiveFormsModule,

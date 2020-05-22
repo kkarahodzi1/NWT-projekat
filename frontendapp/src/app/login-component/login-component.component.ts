@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { User } from '../models/user';
 import { UserService } from '../services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login-component',
@@ -14,7 +15,7 @@ export class LoginComponentComponent implements OnInit {
   user: User;
   config;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService, private toastr: ToastrService) {
     this.loginForm = this.formBuilder.group({
       email: '',
       password: ''
@@ -34,7 +35,7 @@ export class LoginComponentComponent implements OnInit {
       console.log(window.sessionStorage.getItem('token'));
       this.router.navigate(['userview']);
     }, error => {
-        alert("Neispravni podaci")
+      this.toastr.error("Neispravni podaci","Neuspješan login", {timeOut: 0, extendedTimeOut: 0});
     });
     console.log(this.user.password);
   }
