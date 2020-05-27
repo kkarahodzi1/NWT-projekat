@@ -58,7 +58,7 @@ public class UserService implements UserDetailsService {
         Gson gs = new Gson();
         HttpHeaders rsp = new HttpHeaders();
         rsp.set("Content-Type", "application/json");
-
+      //  rsp.setAccessControlAllowOrigin("http://localhost:4200");
         if (ime.equals("") || prezime.equals("") || email.equals("")) {
             if (ime.equals("")) errmsgs.add("ime");
             if (prezime.equals("")) errmsgs.add("prezime");
@@ -92,6 +92,17 @@ public class UserService implements UserDetailsService {
 
         return new ResponseEntity<Object>(repo.findById(id).get(), HttpStatus.OK);
     }
+
+    public ResponseEntity<Object> getByMail(String mail)
+    {
+        HttpHeaders rsp = new HttpHeaders();
+        rsp.set("Content-Type", "application/json");
+        if(repo.findByMail(mail) == null)
+            return new ResponseEntity<Object>("{ \"errmsg\": \"Ne postoji\" }", rsp, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<Object>(repo.findByMail(mail), HttpStatus.OK);
+    }
+
+
 
     public ResponseEntity<Object> modify(User newUser, Long id) {
         List<String> errmsgs = new ArrayList<String>();
@@ -148,6 +159,7 @@ public class UserService implements UserDetailsService {
             return new ResponseEntity<Object>("{ \"errmsg\": \"Ne postoji\" }", rsp, HttpStatus.NOT_FOUND);
         return bl.pregledZakupninaKorisnika(id);
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {

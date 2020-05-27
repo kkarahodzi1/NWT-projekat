@@ -19,6 +19,12 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     User findById(long id);
 
+    /*@Modifying
+    @Transactional
+    @Query("select distinct from User where email = ?1")
+    User findByEmail(String mail);
+*/
+
     List<User> findAll();
 
     // hard delete

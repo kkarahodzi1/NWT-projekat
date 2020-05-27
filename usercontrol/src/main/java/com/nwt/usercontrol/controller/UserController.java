@@ -8,6 +8,7 @@ import com.nwt.usercontrol.Exceptions.UserNotFoundException;
 import com.nwt.usercontrol.model.User;
 import com.nwt.usercontrol.repos.UserRepository;
 import com.nwt.usercontrol.service.UserService;
+import feign.Body;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.nwt.notifications.AkcijaRequest;
@@ -15,6 +16,7 @@ import org.nwt.notifications.AkcijaServiceGrpc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -83,7 +85,7 @@ public class UserController {
 
     // Dodaj novog korisnika
 
-    @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+   // @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
     @PostMapping("/users")
     //@PreAuthorize("hasAuthority('ADMIN')")
     ResponseEntity<Object> newUser(@Valid @RequestBody User newUser)
@@ -164,6 +166,25 @@ public class UserController {
 
      return zahtjev;
     }
+
+    // get po mailu
+    @GetMapping("/secure/users/mail")
+    ResponseEntity<Object>  getByMail(@RequestHeader("mail") String mail)
+    {
+        ResponseEntity<Object> zahtjev = serv.getByMail(mail);
+
+        LogAkcija(AkcijaRequest.newBuilder()
+                .setMikroservis("UserControl")
+                .setTip(AkcijaRequest.Tip.GET)
+                .setResurs("Korisnik")
+                .setOdgovor(zahtjev.getStatusCodeValue()/100 == 2 ? AkcijaRequest.Odgovor.SUCCESS : AkcijaRequest.Odgovor.FAILURE)
+                .build());
+
+        return zahtjev;
+    }
+
+
+
 
     // Da exception ne vrati http error 500 nego 400
     @ExceptionHandler(ConstraintViolationException.class)
