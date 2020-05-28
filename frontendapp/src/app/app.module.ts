@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponentComponent } from './header-component/header-component.component';
@@ -15,6 +15,7 @@ import { UserviewComponent } from './userview/userview.component';
 import { RegisterComponentComponent } from './register-component/register-component.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TokenInterceptor } from './services/auth/token.interceptor';
 
 // PAZNJA !!!!!
 // U OVAJ SMRDLJIVI FAJL SE NECE AUTOMATSKI DODATI IMPORTI KADA NAPRAVITE NESTO NOVO - MORATE IH DODATI RUCNO !!!!
@@ -46,7 +47,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
        ])
    ],
    providers: [
-      UserService
+      UserService,
+      {
+         provide: HTTP_INTERCEPTORS,
+         useClass: TokenInterceptor,
+         multi: true
+       }
    ],
    bootstrap: [
       AppComponent

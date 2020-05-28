@@ -25,6 +25,7 @@ export class LoginComponentComponent implements OnInit {
      }
 
   ngOnInit() {
+    window.sessionStorage.clear();
   }
 
   login(data){
@@ -35,7 +36,8 @@ export class LoginComponentComponent implements OnInit {
       console.log(window.sessionStorage.getItem('token'));
       this.router.navigate(['userview']);
     }, error => {
-      this.toastr.error("Neispravni podaci","Neuspješan login", {timeOut: 0, extendedTimeOut: 0});
+      console.log(error);
+      this.toastr.error("Neispravni podaci","Neuspješan login");
     });
     console.log(this.user.password);
   }

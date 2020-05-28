@@ -8,10 +8,12 @@ import { User } from '../models/user'; // importuje user klasu koju smo napravil
 export class UserService {
     private usersUrl: string; // atribut koji cuva http path
     private OAuthURL: string; // atribut koji cuva http path
+    private secureUrl: string; // atribut koji cuva http path
   
     
 constructor(private http: HttpClient) {
     this.usersUrl = 'http://localhost:8762/user/api/users'; // promijeniti na onaj URL koji nas vodi do korijena user API-ja
+    this.secureUrl = 'http://localhost:8762/user/api/secure/users/';
     this.OAuthURL = 'http://localhost:8762/user/oauth/token';
 }
     // sada redamo metode koje hocemo da servis ima
@@ -19,7 +21,7 @@ constructor(private http: HttpClient) {
     // pronalazi sve usere (vjerovatno nam nece trebati ali eto kao primjer)
     public findAll(): Observable<User[]> {
         // ako je potrebno, prvo prilagoditi tacan URL (paziti da se ne promijeni privatni atribut, on uvijek ostaje base URL)
-        return this.http.get<User[]>(this.usersUrl);
+        return this.http.get<User[]>(this.secureUrl);
       }
 
     // dodaje novog usera, ovo mozemo koristiti prilikom registracije novog korisnika

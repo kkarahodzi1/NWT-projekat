@@ -25,6 +25,7 @@ export class RegisterComponentComponent implements OnInit {
    }
 
   ngOnInit() {
+    window.sessionStorage.clear();
   }
 
 

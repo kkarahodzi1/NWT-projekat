@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-userview',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserviewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
+    this.userService.findAll().subscribe(data => {
+      console.log(data);
+    }, error => {
+      console.log(error);
+    });
   }
 
 }
