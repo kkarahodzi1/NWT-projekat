@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { User } from '../models/user';
 import { UserService } from '../services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register-component',
@@ -14,7 +15,7 @@ export class RegisterComponentComponent implements OnInit {
   user: User;
   config;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService, private toastr: ToastrService) {
     this.loginForm = this.formBuilder.group({
       name: '',
       lname: '',
@@ -34,7 +35,14 @@ export class RegisterComponentComponent implements OnInit {
     this.user.password = data.password;
     this.user.ime = data.name;
     this.user.prezime = data.lname;
-    this.userService.save(this.user).subscribe(response => console.log(response), err => console.log(err));
+    this.userService.save(this.user).subscribe(response => {
+        this.toastr.success('Registracija uspjesna!');
+        this.router.navigate(['']);
+      }, err => {
+        const r = err;
+        this.toastr.error('GRESKA: ' + err.error.errmsg);
+        console.log(err);
+      });
   }
 
 }

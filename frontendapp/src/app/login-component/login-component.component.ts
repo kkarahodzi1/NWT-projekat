@@ -25,10 +25,16 @@ export class LoginComponentComponent implements OnInit {
      }
 
   ngOnInit() {
-    window.sessionStorage.clear();
+    const t = window.sessionStorage.getItem('token');
+    if (t != null) {
+      this.router.navigate(['userview']);
+    } else {
+      window.sessionStorage.clear();
+    }
+
   }
 
-  login(data){
+  login(data) {
     this.user.mail = data.email;
     this.user.password = data.password;
     this.userService.login(this.user).subscribe(data => {
