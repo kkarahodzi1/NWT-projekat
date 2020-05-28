@@ -15,5 +15,12 @@
   <a class="navbar-item" [routerLink]="['/contact']">
     <h3>Kontakt</h3>
   </a>
+  <div *ngIf="loggedin else elseBlock">
+    <a class="button fancy-button" [routerLink]="['']" (click)="odjavi()">ODJAVA</a>
+  </div>
+<ng-template #elseBlock>
   <a class="button fancy-button" [routerLink]="['/register']">REGISTRACIJA</a>
+</ng-template>
+
+  
   </div>

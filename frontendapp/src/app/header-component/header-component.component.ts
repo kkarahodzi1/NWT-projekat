@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-header-component',
@@ -6,10 +7,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header-component.component.css']
 })
 export class HeaderComponentComponent implements OnInit {
-
-  constructor() { }
+  
+  loggedin: boolean;
+  constructor(public router: Router) {
+    router.events.subscribe( (event) => ( event instanceof NavigationEnd ) && this.handleRouteChange());
+    this.loggedin = false;
+   }
 
   ngOnInit() {
+    this.handleRouteChange();
+  }
+  handleRouteChange = () => {
+    if (window.sessionStorage.getItem('token') == null) {
+        this.loggedin = false;
+    } else {
+      this.loggedin = true;
+    }
+  }
+
+  odjavi() {
+    window.sessionStorage.clear();
   }
 
 }
