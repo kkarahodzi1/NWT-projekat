@@ -13,11 +13,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Config {
 
-    private String QUEUE = "billings-queue";
+    private String QUEUE = "storage-queue";
 
-    private String EXCHANGE = "billings-exchange";
+    private String EXCHANGE = "storage-exchange";
 
-    private String ROUTING_KEY = "billings";
+    private String ROUTING_KEY = "storages";
 
     @Bean
     Queue queue()
