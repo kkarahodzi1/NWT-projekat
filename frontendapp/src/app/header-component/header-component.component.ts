@@ -7,7 +7,6 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
   styleUrls: ['./header-component.component.css']
 })
 export class HeaderComponentComponent implements OnInit {
-  
   loggedin: boolean;
   constructor(public router: Router) {
     router.events.subscribe( (event) => ( event instanceof NavigationEnd ) && this.handleRouteChange());

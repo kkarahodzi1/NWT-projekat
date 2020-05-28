@@ -96,16 +96,16 @@ public class BillingsController {
     }
 
     @DeleteMapping("/billings/{id}")
-    void ukloniZakupninu(@PathVariable Long id,
-                         @RequestHeader("pozivaoc-id") Long korisnikId,
-                         @RequestHeader("pozivaoc-rola") Boolean korisnikRola) {
+    void ukloniZakupninu(@PathVariable Long id//,
+                        /* @RequestHeader("pozivaoc-id") Long korisnikId,
+                         @RequestHeader("pozivaoc-rola") Boolean korisnikRola*/) {
 
         if (id == 0) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Pogresan id zakupnine");
         }
 
-        ValidacijskiHelper.provjeriPristup(id, korisnikId, korisnikRola);
+       // ValidacijskiHelper.provjeriPristup(id, korisnikId, korisnikRola);
 
         try
         {

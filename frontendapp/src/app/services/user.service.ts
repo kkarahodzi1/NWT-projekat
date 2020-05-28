@@ -3,6 +3,10 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'; // z
 import { Observable } from 'rxjs';
 
 import { User } from '../models/user'; // importuje user klasu koju smo napravili
+import { Zakupnina } from '../models/zakupnina';
+import { Skladiste } from '../models/skladiste';
+import { SkladisnaJedinica } from '../models/skladisnaJedinica';
+
 
 @Injectable()
 export class UserService {
@@ -18,11 +22,28 @@ constructor(private http: HttpClient) {
 }
     // sada redamo metode koje hocemo da servis ima
 
-    // pronalazi sve usere (vjerovatno nam nece trebati ali eto kao primjer)
-    public findAll(): Observable<User[]> {
-        // ako je potrebno, prvo prilagoditi tacan URL (paziti da se ne promijeni privatni atribut, on uvijek ostaje base URL)
-        return this.http.get<User[]>(this.secureUrl);
+    // pronalazi sve zakupnine
+    public findAllBillings(): Observable<Zakupnina[]> {
+        let url = 'http://localhost:8762/user/api/secure/users/billings/';
+        url += JSON.parse(window.sessionStorage.getItem('token')).client.id;
+        return this.http.get<Zakupnina[]>(url);
       }
+
+    public findStorage(id: number): Observable<Skladiste> {
+        const url = 'http://localhost:8762/storage/api/skladista/' + id;
+        const headers = {
+          'Access-Control-Allow-Origin': 'http://localhost:4200'
+        };
+
+        return this.http.get<Skladiste>(url, {headers});
+    }
+
+
+
+    public deleteBilling(id: number): Observable<any> {
+      const url = 'http://localhost:8762/billing/api/billings/' + id;
+      return this.http.delete<any>(url);
+    }
 
     // dodaje novog usera, ovo mozemo koristiti prilikom registracije novog korisnika
     public save(user: User) {

@@ -67,8 +67,8 @@ public class UsercontrolApplication {
     public CommandLineRunner demo(UserRepository repo) {
         return (args) -> {
             // save a few customers
-                repo.save(new User("Mujo", "Mujic", "mujo@gmail.com", "123", 0));
-                repo.save(new User("Todd", "Howard", "howard@bethesda.com", "itjustworks", 1));
+                repo.save(new User("Mujo", "Mujic", "mujo@gmail.com", "123", 1));
+                repo.save(new User("Todd", "Howard", "howard@bethesda.com", "itjustworks", 0));
             // fetch all customers
             log.info("Svi korisnici, findAll():");
             log.info("-------------------------------");

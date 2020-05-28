@@ -16,6 +16,7 @@ import { RegisterComponentComponent } from './register-component/register-compon
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TokenInterceptor } from './services/auth/token.interceptor';
+import { AdminviewComponent } from './adminview/adminview.component';
 
 // PAZNJA !!!!!
 // U OVAJ SMRDLJIVI FAJL SE NECE AUTOMATSKI DODATI IMPORTI KADA NAPRAVITE NESTO NOVO - MORATE IH DODATI RUCNO !!!!
@@ -29,11 +30,12 @@ import { TokenInterceptor } from './services/auth/token.interceptor';
       AboutComponentComponent,
       ContactComponentComponent,
       UserviewComponent,
-      RegisterComponentComponent
+      RegisterComponentComponent,
+      AdminviewComponent
    ],
    imports: [
       BrowserModule,
-      BrowserAnimationsModule, 
+      BrowserAnimationsModule,
       ToastrModule.forRoot(),
       HttpClientModule,
       RouterModule,
@@ -43,7 +45,8 @@ import { TokenInterceptor } from './services/auth/token.interceptor';
          { path: 'about', component: AboutComponentComponent },
          { path: 'contact', component: ContactComponentComponent },
          { path: 'userview', component: UserviewComponent },
-         { path: 'register', component: RegisterComponentComponent }
+         { path: 'register', component: RegisterComponentComponent },
+         { path: 'adminview', component: AdminviewComponent }
        ])
    ],
    providers: [

@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 
-@RabbitListener(queues = "storage-queue")
+@RabbitListener(queues = "storage-queue", autoStartup = "false")
 public class Receiver {
     @Autowired
     private AmqpTemplate amqpTemplate;
