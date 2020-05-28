@@ -1,3 +1,46 @@
-<p>
-  adminview works!
-</p>
+<div class=adminview>
+  <h1 class="naslov">
+    Dobrodošao, {{korisnik.ime}}!
+  </h1>
+
+  <ul class="text-center list-inline">
+    <li class="list-inline-item">
+      <a class="button fancy-button" (click)="dodajSkladiste()">Dodaj skladište</a>
+    </li>
+    <li class="list-inline-item">
+      <a class="button fancy-button" (click)="dodajSkladJed()">Dodaj skladišnu jedinicu</a>
+    </li>
+  </ul>
+
+  <ul class="text-center list-inline">
+    <li class="list-inline-item">
+      <a class="button fancy-button" (click)="obrisiSkladiste()">Obriši skladište</a>
+    </li>
+    <li class="list-inline-item">
+      <a class="button fancy-button" (click)="obrisiSkladJed()">Obriši  skladišnu jedinicu</a>
+      </li>
+  </ul>
+
+  <div *ngIf="dodavanjeSklad" class="dodaj">
+    <h1 class="naslov">
+      Dodaj Skladište
+    </h1>
+    <form class="form-signin" [formGroup]="forma" (ngSubmit)="postSkladiste(forma.value)">
+
+      <label for="inputAdress" class="sr-only">Adresa</label>
+      <input type="text" id="inputAdress" class="form-control" placeholder="Adresa" required autofocus formControlName="adresa">
+
+      <label for="inputKapacitet" class="sr-only">Kapacitet</label>
+      <input type="number" min="1" id="inputKapacitet" class="form-control" placeholder="Kapacitet" required autofocus formControlName="kapacitet">
+    
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Dodaj</button>
+    </form>
+  </div>
+
+  <select name="demo" id="#">
+    <option selected="selected" value="one">Option 1</option>
+    <option value="two">Option 2</option>
+    <option value="three">Option 3</option>
+  </select>
+
+  </div>

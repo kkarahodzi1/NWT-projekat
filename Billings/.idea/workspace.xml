@@ -2,20 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ac3ede1-9ee9-45d6-88f3-d157f14e3704" name="Default Changelist" comment="Dodan grpc klijent za billings servis sa logiranjem poziva">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Billings.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Billings.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nwt/billings/controller/BillingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nwt/billings/controller/BillingsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/nwt/billings/rabbitmq/Receiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nwt/billings/rabbitmq/Receiver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Notifications/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Notifications/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontendapp/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontendapp/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontendapp/src/app/header-component/header-component.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontendapp/src/app/header-component/header-component.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontendapp/src/app/models/zakupnina.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontendapp/src/app/models/zakupnina.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontendapp/src/app/services/user.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontendapp/src/app/services/user.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontendapp/src/app/userview/userview.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontendapp/src/app/userview/userview.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontendapp/src/app/adminview/adminview.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontendapp/src/app/adminview/adminview.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontendapp/src/app/adminview/adminview.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontendapp/src/app/adminview/adminview.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontendapp/src/app/userview/userview.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontendapp/src/app/userview/userview.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../storagecontrol/src/main/java/com/nwt/storagecontrol/controller/SkladisteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../storagecontrol/src/main/java/com/nwt/storagecontrol/controller/SkladisteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../usercontrol/src/main/java/com/nwt/usercontrol/UsercontrolApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../usercontrol/src/main/java/com/nwt/usercontrol/UsercontrolApplication.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

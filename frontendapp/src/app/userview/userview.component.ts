@@ -59,6 +59,7 @@ export class UserviewComponent implements OnInit {
     this.userService.deleteBilling(id).subscribe(data => {
       this.toastr.success('Zakupnina obrisana!', 'USPJEH');
       this.router.navigate(['userview']);
+      this.lista=false;
     });
   }
 

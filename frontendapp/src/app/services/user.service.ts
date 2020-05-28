@@ -38,6 +38,20 @@ constructor(private http: HttpClient) {
         return this.http.get<Skladiste>(url, {headers});
     }
 
+    public addStorage(skladiste: Skladiste): Observable<any> {
+      const url = 'http://localhost:8762/storage/api/skladista/';
+      const headers = {
+        'Content-type': 'application/json'
+      };
+
+      const body = {
+        'adresa': skladiste.adresa,
+        'brojJedinica': skladiste.broj_skladisnih_jedinica
+      };
+
+      return this.http.post<Skladiste>(url,body, {headers});
+  }
+
 
 
     public deleteBilling(id: number): Observable<any> {
