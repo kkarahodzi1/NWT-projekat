@@ -28,7 +28,6 @@ import java.util.Arrays;
 
 
 @EnableAuthorizationServer
-@EnableResourceServer
 @EnableEurekaClient
 @EnableFeignClients
 @SpringBootApplication
