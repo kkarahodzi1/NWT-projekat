@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nwt.storagecontrol.model.Tipovi;
 
-@CrossOrigin(origins = "http://localhost:8083")
 @RestController
 @RequestMapping("/api")
 public class TipoviController

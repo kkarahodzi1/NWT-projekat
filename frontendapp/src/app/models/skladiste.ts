@@ -1,5 +1,5 @@
 export class Skladiste {
-    skladiste_id: number;
+    id: number;
     adresa: string;
     broj_skladisnih_jedinica: number;
     datumKreiranja: string;

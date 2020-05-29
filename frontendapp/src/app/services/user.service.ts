@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { User } from '../models/user'; // importuje user klasu koju smo napravili
 import { Zakupnina } from '../models/zakupnina';
 import { Skladiste } from '../models/skladiste';
+import {Tip} from '../models/tip';
 import { SkladisnaJedinica } from '../models/skladisnaJedinica';
 
 
@@ -38,6 +39,16 @@ constructor(private http: HttpClient) {
         return this.http.get<Skladiste>(url, {headers});
     }
 
+    public findAllStorages(): Observable<Skladiste[]> {
+      let url = 'http://localhost:8762/storage/api/skladista/';
+      return this.http.get<Skladiste[]>(url);
+    }
+
+    public findAllTypes(): Observable<Tip[]> {
+      let url = 'http://localhost:8762/storage/api/tipovi/';
+      return this.http.get<Tip[]>(url);
+    }
+
     public addStorage(skladiste: Skladiste): Observable<any> {
       const url = 'http://localhost:8762/storage/api/skladista/';
       const headers = {
@@ -50,7 +61,24 @@ constructor(private http: HttpClient) {
       };
 
       return this.http.post<Skladiste>(url,body, {headers});
-  }
+    }
+
+    public addStorageUnit(tip: Tip, skladiste: Skladiste, broj: Number): Observable<any> {
+      const url = 'http://localhost:8762/storage/api/skladjed/';
+      const headers = {
+        'Content-type': 'application/json'
+      };
+
+      const body = {
+        'broj': broj,
+        'skladiste': skladiste.id,
+        'tip': tip.naziv
+      };
+
+      console.log(body);
+
+      return this.http.post<Skladiste>(url,body, {headers});
+    }
 
 
 
