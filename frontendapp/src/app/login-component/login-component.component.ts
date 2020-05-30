@@ -4,6 +4,8 @@ import { FormBuilder } from '@angular/forms';
 import { User } from '../models/user';
 import { UserService } from '../services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { FormsModule, ReactiveFormsModule, NG_VALIDATORS, Validator, AbstractControl, ValidatorFn } from '@angular/forms';
+import { FormGroup, FormControl, Validators, Form, NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-login-component',
@@ -14,13 +16,16 @@ export class LoginComponentComponent implements OnInit {
   loginForm;
   user: User;
   config;
+  fm: FormGroup;
+  public unos = {email: null, password: null};
+  public validmail: RegExp;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService, private toastr: ToastrService) {
     this.loginForm = this.formBuilder.group({
       email: '',
       password: ''
     });
-
+    this.validmail = new RegExp('^([\\w\\-\\.]+)@((\\[([0-9]{1,3}\\.){3}[0-9]{1,3}\\])|(([\\w\\-]+\\.)+)([a-zA-Z]{2,4}))$');
     this.user = new User();
      }
 
@@ -35,6 +40,7 @@ export class LoginComponentComponent implements OnInit {
   }
 
   login(data) {
+
     this.user.mail = data.email;
     this.user.password = data.password;
     this.userService.login(this.user).subscribe(data => {
@@ -43,8 +49,8 @@ export class LoginComponentComponent implements OnInit {
       this.router.navigate(['userview']);
     }, error => {
       console.log(error);
-      this.toastr.error("Neispravni podaci","Neuspješan login");
+      this.toastr.error('Neispravni podaci","Neuspješan login');
     });
-    console.log(this.user.password);
+
   }
 }

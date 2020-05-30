@@ -17,6 +17,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TokenInterceptor } from './services/auth/token.interceptor';
 import { AdminviewComponent } from './adminview/adminview.component';
+import { FormsModule } from '@angular/forms';
 
 // PAZNJA !!!!!
 // U OVAJ SMRDLJIVI FAJL SE NECE AUTOMATSKI DODATI IMPORTI KADA NAPRAVITE NESTO NOVO - MORATE IH DODATI RUCNO !!!!
@@ -36,6 +37,7 @@ import { AdminviewComponent } from './adminview/adminview.component';
    imports: [
       BrowserModule,
       BrowserAnimationsModule,
+      FormsModule,
       ToastrModule.forRoot(),
       HttpClientModule,
       RouterModule,

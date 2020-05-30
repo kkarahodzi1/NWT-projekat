@@ -14,6 +14,7 @@ export class RegisterComponentComponent implements OnInit {
   loginForm;
   user: User;
   config;
+  public validmail: RegExp;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService, private toastr: ToastrService) {
     this.loginForm = this.formBuilder.group({
@@ -22,6 +23,7 @@ export class RegisterComponentComponent implements OnInit {
       email: '',
       password: ''
     });
+    this.validmail = new RegExp('^([\\w\\-\\.]+)@((\\[([0-9]{1,3}\\.){3}[0-9]{1,3}\\])|(([\\w\\-]+\\.)+)([a-zA-Z]{2,4}))$');
     this.user = new User();
    }
 
