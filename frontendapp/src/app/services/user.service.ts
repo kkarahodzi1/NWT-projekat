@@ -49,6 +49,11 @@ constructor(private http: HttpClient) {
       return this.http.get<Tip[]>(url);
     }
 
+    public findAllUnits(skladiste: Skladiste): Observable<SkladisnaJedinica[]> {
+      let url = 'http://localhost:8762/storage/api/skladjed?skladiste=' + skladiste.id;
+      return this.http.get<SkladisnaJedinica[]>(url);
+    }
+
     public addStorage(skladiste: Skladiste): Observable<any> {
       const url = 'http://localhost:8762/storage/api/skladista/';
       const headers = {
@@ -80,10 +85,18 @@ constructor(private http: HttpClient) {
       return this.http.post<Skladiste>(url,body, {headers});
     }
 
-
+    public deleteStorage(skladiste: Skladiste): Observable<any> {
+      const url = 'http://localhost:8762/storage/api/skladista/' + skladiste.id;
+      return this.http.delete<any>(url);
+    }
 
     public deleteBilling(id: number): Observable<any> {
       const url = 'http://localhost:8762/billing/api/billings/' + id;
+      return this.http.delete<any>(url);
+    }
+
+    public deleteUnit(skladisnaJedinica: SkladisnaJedinica): Observable<any> {
+      const url = 'http://localhost:8762/storage/api/skladjed/' + skladisnaJedinica.id;
       return this.http.delete<any>(url);
     }
 

@@ -23,3 +23,7 @@
   .custom-select{
     margin-bottom: 1em;
   }
+
+  .btn-delete{
+    background-color: red;
+  }

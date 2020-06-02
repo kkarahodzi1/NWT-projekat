@@ -1,5 +1,5 @@
 export class SkladisnaJedinica {
-    jedinica_id: number;
+    id: number;
     skladiste_id: number;
     broj: number;
     tip: number;

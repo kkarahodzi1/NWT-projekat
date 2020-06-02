@@ -57,7 +57,41 @@
       </select>
 
       <button class="btn btn-lg btn-primary btn-block" type="submit">Dodaj</button>
-  </form>
-</div>
-
+    </form>
   </div>
+
+  <div *ngIf="brisanjeSklad" class="dodaj">
+    <h1 class="naslov">
+      Obriši Skladište
+    </h1>
+    <form class="form-signin" [formGroup]="forma3" (ngSubmit)="deleteSklad(forma3.value)">
+
+      <select class="custom-select" formControlName="skladChoose" id="skladChoose">
+        <option value="" disabled>Odaberi Skladište</option>
+        <option *ngFor="let skladiste of svaSkladista" [ngValue]="skladiste">{{skladiste.adresa}}</option>
+      </select>
+
+      <button class="btn btn-lg btn-block btn-delete" type="submit">Obriši</button>
+    </form>
+  </div>
+  
+  <div *ngIf="brisanjeSJed" class="dodaj">
+    <h1 class="naslov">
+      Obriši Skladišnu Jedinicu
+    </h1>
+    <form class="form-signin" [formGroup]="forma4" (ngSubmit)="deleteSJed(forma4.value)">
+
+      <select class="custom-select" formControlName="skladChoose" id="skladChoose" (change)="onChange(forma4.value)">
+        <option value="" disabled>Odaberi Skladište</option>
+        <option *ngFor="let skladiste of svaSkladista" [ngValue]="skladiste">{{skladiste.adresa}}</option>
+      </select>
+
+      <select class="custom-select" formControlName="sjedChoose" id="sjedChoose">
+        <option value="" disabled>Odaberi Skladišnu Jedinicu</option>
+        <option *ngFor="let jedinica of sveJedinice" [ngValue]="jedinica">{{jedinica.broj}}</option>
+      </select>
+
+      <button class="btn btn-lg btn-block btn-delete" type="submit">Obriši</button>
+    </form>
+  </div>
+</div>

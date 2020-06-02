@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { promise } from 'protractor';
 import { FormBuilder } from '@angular/forms';
+import { SkladisnaJedinica } from '../models/skladisnaJedinica';
 // import {MatMenuModule} from '@angular/material/menu';
 // ne da mi da ovo importujem, ali se svakako ne koristi
 
@@ -20,10 +21,15 @@ export class AdminviewComponent implements OnInit {
   korisnik: User;
   dodavanjeSklad: boolean;
   dodavanjeSJed: boolean;
+  brisanjeSklad: boolean;
+  brisanjeSJed: boolean;
   forma;
   forma2;
+  forma3;
+  forma4;
   svaSkladista: Skladiste[];
   sviTipovi: Tip[];
+  sveJedinice: SkladisnaJedinica[];
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router, private toastr: ToastrService) {
     this.forma = this.formBuilder.group({
@@ -35,13 +41,23 @@ export class AdminviewComponent implements OnInit {
       skladChoose: [''],
       tipChoose: ['']
     });
+    this.forma3 = this.formBuilder.group({
+      skladChoose: ['']
+    });
+    this.forma4 = this.formBuilder.group({
+      skladChoose: [''],
+      sjedChoose: ['']
+    });
     this.svaSkladista = new Array<Skladiste>();
     this.sviTipovi = new Array<Tip>();
+    this.sveJedinice = new Array<SkladisnaJedinica>();
   }
 
   ngOnInit() {
     this.dodavanjeSklad = false;
     this.dodavanjeSJed = false;
+    this.brisanjeSJed = false;
+    this.brisanjeSklad = false;
     if (window.sessionStorage.getItem('token') == null) {
       this.toastr.error('Korisnik nije prijavljen!', 'GREŠKA');
       this.router.navigate(['']);
@@ -54,6 +70,8 @@ export class AdminviewComponent implements OnInit {
   dodajSkladiste() {
     this.dodavanjeSJed = false;
     this.dodavanjeSklad = true;
+    this.brisanjeSJed = false;
+    this.brisanjeSklad = false;
   }
 
   postSkladiste(skladData) {
@@ -61,7 +79,7 @@ export class AdminviewComponent implements OnInit {
     skladiste.adresa = skladData.adresa;
     skladiste.broj_skladisnih_jedinica = skladData.kapacitet;
 
-    if (skladData.adresa == null || skladData.kapacitet == null) {
+    if (skladData.adresa == "" || skladData.kapacitet == "") {
       this.toastr.warning('Niste unijeli sve podatke', 'UPOZORENJE');
       return;
     }
@@ -79,6 +97,8 @@ export class AdminviewComponent implements OnInit {
   dodajSkladJed() {
     this.dodavanjeSJed = true;
     this.dodavanjeSklad = false;
+    this.brisanjeSJed = false;
+    this.brisanjeSklad = false;
     this.userService.findAllStorages().subscribe(data => {
         this.svaSkladista = data;
         console.log(this.svaSkladista);
@@ -102,7 +122,7 @@ export class AdminviewComponent implements OnInit {
     const skladiste = skladData.skladChoose;
     const tip = skladData.tipChoose;
 
-    if (skladiste == null || tip == null || skladData.inputBrojJed == null) {
+    if (skladiste == null || tip == null ||  skladiste == "" || tip == "" || skladData.inputBrojJed == null) {
       this.toastr.warning('Niste unijeli sve podatke', 'UPOZORENJE');
       return;
     }
@@ -119,15 +139,93 @@ export class AdminviewComponent implements OnInit {
   }
 
   obrisiSkladiste() {
+    this.dodavanjeSJed = false;
+    this.dodavanjeSklad = false;
+    this.brisanjeSJed = false;
+    this.brisanjeSklad = true;
 
+    this.userService.findAllStorages().subscribe(data => {
+      this.svaSkladista = data;
+      console.log(this.svaSkladista);
+    },
+    error => {
+      console.log(error);
+      this.toastr.error('Greška pri učitavanju', 'GREŠKA');
+    });
+  }
+
+  deleteSklad(skladData)
+  {
+    console.log(skladData.skladChoose)
+    if (skladData.skladChoose == "" || skladData.skladChoose == null) {
+      this.toastr.warning('Niste unijeli sve podatke', 'UPOZORENJE');
+      return;
+    }
+    this.userService.deleteStorage(skladData.skladChoose).subscribe(data => {
+      console.log(data);
+      this.toastr.success("Skladište je uspješno obrisano", "USPJEH");
+    },
+    error => {
+      console.log(error.status);
+      if(error.status == 417)
+        this.toastr.error('Nije moguće obrisati skladište sa aktivnim jedinicma', 'GREŠKA');
+      else
+        this.toastr.error('Greška pri brisanju', 'GREŠKA');
+    });
+
+    this.brisanjeSklad = false;
+    this.forma3.reset();
   }
 
   obrisiSkladJed() {
+    this.dodavanjeSJed = false;
+    this.dodavanjeSklad = false;
+    this.brisanjeSJed = true;
+    this.brisanjeSklad = false;
 
+    this.userService.findAllStorages().subscribe(data => {
+      this.svaSkladista = data;
+      console.log(this.svaSkladista);
+    },
+    error => {
+      console.log(error);
+      this.toastr.error('Greška pri učitavanju', 'GREŠKA');
+    });
   }
 
-
-  changeCity(e) {
+  onChange(skladData)
+  {
+    console.log(skladData.skladChoose)
+    this.userService.findAllUnits(skladData.skladChoose).subscribe(data=>
+      {
+        console.log("Radim")
+        console.log(data)
+        this.sveJedinice = data;
+      },
+      error => {
+        console.log(error);
+        this.toastr.error('Greška pri učitavanju', 'GREŠKA');
+      });
   }
 
+  deleteSJed(sjedData)
+  {
+    console.log(sjedData.sjedChoose)
+    if (sjedData.sjedChoose == "" || sjedData.sjedChoose == null) {
+      this.toastr.warning('Niste unijeli sve podatke', 'UPOZORENJE');
+      return;
+    }
+    this.userService.deleteUnit(sjedData.sjedChoose).subscribe(data => {
+      console.log(data);
+      this.toastr.success("Skladišna jedinica je uspješno obrisana", "USPJEH");
+    },
+    error => {
+      console.log(error);
+      
+        this.toastr.error('Greška pri brisanju', 'GREŠKA');
+    });
+
+    this.brisanjeSJed = false;
+    this.forma4.reset();
+  }
 }
