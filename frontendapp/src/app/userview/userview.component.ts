@@ -51,7 +51,7 @@ export class UserviewComponent implements OnInit {
     this.userService.findAllBillings().subscribe(data => {
       this.sveZakupnine = data.filter(this.daLiJeObrisan);
     }, error => {
-      console.log(error);
+      this.toastr.error('Greška pri učitavanju', 'GREŠKA' );
     });
   }
 

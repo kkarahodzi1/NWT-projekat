@@ -45,10 +45,8 @@ export class LoginComponentComponent implements OnInit {
     this.user.password = data.password;
     this.userService.login(this.user).subscribe(data => {
       window.sessionStorage.setItem('token', JSON.stringify(data));
-      console.log(window.sessionStorage.getItem('token'));
       this.router.navigate(['userview']);
     }, error => {
-      console.log(error);
       this.toastr.error('Neispravni podaci","Neuspješan login');
     });
 

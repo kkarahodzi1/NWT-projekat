@@ -43,7 +43,6 @@ export class RegisterComponentComponent implements OnInit {
       }, err => {
         const r = err;
         this.toastr.error('GRESKA: ' + err.error.errmsg);
-        console.log(err);
       });
   }
 

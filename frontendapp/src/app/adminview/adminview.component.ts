@@ -87,7 +87,6 @@ export class AdminviewComponent implements OnInit {
     this.userService.addStorage(skladiste).subscribe(data => {
         this.toastr.success('Uspješno dodano skladište', 'USPJEH');
       }, error => {
-        console.log(error);
         this.toastr.error('Skladište nije dodano', 'GREŠKA');
       });
     this.dodavanjeSklad = false;
@@ -101,19 +100,15 @@ export class AdminviewComponent implements OnInit {
     this.brisanjeSklad = false;
     this.userService.findAllStorages().subscribe(data => {
         this.svaSkladista = data;
-        console.log(this.svaSkladista);
       },
       error => {
-        console.log(error);
         this.toastr.error('Greška pri učitavanju', 'GREŠKA');
       });
 
     this.userService.findAllTypes().subscribe(data => {
           this.sviTipovi = data;
-          console.log(this.sviTipovi);
         },
         error => {
-          console.log(error);
           this.toastr.error('Greška pri učitavanju', 'GREŠKA');
         });
   }
@@ -126,12 +121,10 @@ export class AdminviewComponent implements OnInit {
       this.toastr.warning('Niste unijeli sve podatke', 'UPOZORENJE');
       return;
     }
-    console.log(skladiste);
 
     this.userService.addStorageUnit(tip, skladiste, skladData.inputBrojJed).subscribe(data => {
         this.toastr.success('Uspješno dodana jedinica', 'USPJEH');
       }, error => {
-        console.log(error);
         this.toastr.error('Jedinica nije dodana', 'GREŠKA');
       });
     this.dodavanjeSJed = false;
@@ -146,27 +139,22 @@ export class AdminviewComponent implements OnInit {
 
     this.userService.findAllStorages().subscribe(data => {
       this.svaSkladista = data;
-      console.log(this.svaSkladista);
     },
     error => {
-      console.log(error);
       this.toastr.error('Greška pri učitavanju', 'GREŠKA');
     });
   }
 
   deleteSklad(skladData)
   {
-    console.log(skladData.skladChoose)
     if (skladData.skladChoose == "" || skladData.skladChoose == null) {
       this.toastr.warning('Niste unijeli sve podatke', 'UPOZORENJE');
       return;
     }
     this.userService.deleteStorage(skladData.skladChoose).subscribe(data => {
-      console.log(data);
       this.toastr.success("Skladište je uspješno obrisano", "USPJEH");
     },
     error => {
-      console.log(error.status);
       if(error.status == 417)
         this.toastr.error('Nije moguće obrisati skladište sa aktivnim jedinicma', 'GREŠKA');
       else
@@ -185,42 +173,33 @@ export class AdminviewComponent implements OnInit {
 
     this.userService.findAllStorages().subscribe(data => {
       this.svaSkladista = data;
-      console.log(this.svaSkladista);
     },
     error => {
-      console.log(error);
       this.toastr.error('Greška pri učitavanju', 'GREŠKA');
     });
   }
 
   onChange(skladData)
   {
-    console.log(skladData.skladChoose)
     this.userService.findAllUnits(skladData.skladChoose).subscribe(data=>
       {
-        console.log("Radim")
-        console.log(data)
         this.sveJedinice = data;
       },
       error => {
-        console.log(error);
         this.toastr.error('Greška pri učitavanju', 'GREŠKA');
       });
   }
 
   deleteSJed(sjedData)
   {
-    console.log(sjedData.sjedChoose)
     if (sjedData.sjedChoose == "" || sjedData.sjedChoose == null) {
       this.toastr.warning('Niste unijeli sve podatke', 'UPOZORENJE');
       return;
     }
     this.userService.deleteUnit(sjedData.sjedChoose).subscribe(data => {
-      console.log(data);
       this.toastr.success("Skladišna jedinica je uspješno obrisana", "USPJEH");
     },
     error => {
-      console.log(error);
       
         this.toastr.error('Greška pri brisanju', 'GREŠKA');
     });
