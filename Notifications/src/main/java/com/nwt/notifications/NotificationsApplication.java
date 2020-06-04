@@ -50,7 +50,6 @@ public class NotificationsApplication {
             }
             server.awaitTermination();
 
-            log.info(repo.toString());
         };
     }
 

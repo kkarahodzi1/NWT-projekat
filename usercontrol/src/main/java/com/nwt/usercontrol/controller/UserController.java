@@ -14,8 +14,12 @@ import io.grpc.ManagedChannelBuilder;
 import org.nwt.notifications.AkcijaRequest;
 import org.nwt.notifications.AkcijaServiceGrpc;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,6 +38,8 @@ import javax.ws.rs.Path;
 
 @RestController
 @RequestMapping("/api")
+@Configuration
+@PropertySource("classpath:application.properties")
 public class UserController {
 
    // @Autowired
@@ -43,6 +49,10 @@ public class UserController {
     {
         serv = s;
     }
+
+
+    @Autowired
+    private Environment env;
 
     UserController(){}
 /*
@@ -57,7 +67,8 @@ public class UserController {
     // logging za gRPC
     public void LogAkcija(AkcijaRequest akcijaRequest)
     {
-     ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8084)
+
+     ManagedChannel channel = ManagedChannelBuilder.forAddress(env.getProperty("adresa"), 8084)
              .usePlaintext()
              .build();
 

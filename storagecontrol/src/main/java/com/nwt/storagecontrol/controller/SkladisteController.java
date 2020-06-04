@@ -8,6 +8,9 @@ import io.grpc.ManagedChannelBuilder;
 import org.nwt.notifications.AkcijaRequest;
 import org.nwt.notifications.AkcijaServiceGrpc;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,11 +26,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 //@CrossOrigin(origins = "http://localhost:8083")
 @RestController
+@Configuration
+@PropertySource("classpath:application.properties")
 @RequestMapping("/api")
 public class SkladisteController
 {
     @Autowired
     SkladistaService skladistaService;
+
+    @Autowired
+    private Environment env;
 
     SkladisteController(SkladistaService skladistaService)
     {
@@ -36,7 +44,7 @@ public class SkladisteController
 
     public void LogAkcija(AkcijaRequest akcijaRequest)
     {
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8084)
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(env.getProperty("adresa"), 8084)
                 .usePlaintext()
                 .build();
 

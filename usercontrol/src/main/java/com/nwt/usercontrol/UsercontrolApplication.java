@@ -7,14 +7,17 @@ import io.grpc.ManagedChannelBuilder;
 import org.nwt.notifications.AkcijaRequest;
 import org.nwt.notifications.AkcijaResponse;
 import org.nwt.notifications.AkcijaServiceGrpc;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,33 +36,12 @@ import java.util.Arrays;
 @SpringBootApplication
 public class UsercontrolApplication {
 
+
     private static final Logger log = LoggerFactory.getLogger(UsercontrolApplication.class);
 
     public static void main(String[] args)
     {
         SpringApplication.run(UsercontrolApplication.class, args);
-
-        log.info("RADI");
-
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8084)
-                .usePlaintext()
-                .build();
-
-        AkcijaServiceGrpc.AkcijaServiceBlockingStub stub
-                = AkcijaServiceGrpc.newBlockingStub(channel);
-
-
-        AkcijaResponse akcijaResponse = stub.akcija(AkcijaRequest.newBuilder()
-                .setMikroservis("Usercontrol")
-                .setTip(AkcijaRequest.Tip.CREATE)
-                .setResurs("Korisnik")
-                .setOdgovor(AkcijaRequest.Odgovor.SUCCESS)
-                .build());
-
-        log.info(akcijaResponse.getOdgovor());
-
-        channel.shutdown();
-
     }
 
     @Bean

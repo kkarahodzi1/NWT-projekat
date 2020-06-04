@@ -16,6 +16,9 @@ import org.nwt.notifications.AkcijaRequest;
 import org.nwt.notifications.AkcijaServiceGrpc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -30,11 +33,17 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@Configuration
+@PropertySource("classpath:application.properties")
 public class BillingsController {
 
     private ZakupninaServis servis;
     private NotificationsKlijent notificationsKlijent;
     private UserKlijent userKlijent;
+
+
+    @Autowired
+    private Environment env;
 
     @Autowired
     public BillingsController(ZakupninaServis servis, NotificationsKlijent notificationsKlijent, UserKlijent userKlijent) {
@@ -45,7 +54,7 @@ public class BillingsController {
 
     public void LogAkcija(AkcijaRequest akcijaRequest)
     {
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8084)
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(env.getProperty("adresa"), 8084)
                 .usePlaintext()
                 .build();
 

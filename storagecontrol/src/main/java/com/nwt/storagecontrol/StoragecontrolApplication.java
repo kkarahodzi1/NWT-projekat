@@ -32,27 +32,6 @@ public class StoragecontrolApplication {
     public static void main(String[] args) {
 
         SpringApplication.run(StoragecontrolApplication.class, args);
-
-        log.info("RADI");
-
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8084)
-                .usePlaintext()
-                .build();
-
-        AkcijaServiceGrpc.AkcijaServiceBlockingStub stub
-                = AkcijaServiceGrpc.newBlockingStub(channel);
-
-
-        AkcijaResponse akcijaResponse = stub.akcija(AkcijaRequest.newBuilder()
-                .setMikroservis("Storage")
-                .setTip(AkcijaRequest.Tip.CREATE)
-                .setResurs("Skladista")
-                .setOdgovor(AkcijaRequest.Odgovor.SUCCESS)
-                .build());
-
-        log.info(akcijaResponse.getOdgovor());
-
-        channel.shutdown();
     }
 
     @Bean

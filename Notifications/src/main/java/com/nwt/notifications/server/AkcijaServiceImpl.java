@@ -31,6 +31,9 @@ public class AkcijaServiceImpl extends AkcijaServiceGrpc.AkcijaServiceImplBase {
 
         akcijaRepository.save(new Akcija(new Date(), request.getMikroservis(), request.getTip(), request.getResurs(),request.getOdgovor()));
 
+
+        System.out.println("Request: " + request.getMikroservis());
+
         String greeting = new StringBuilder()
                 .append("Uspjesno prihvacen zahtjev servisa ")
                 .append(request.getMikroservis())

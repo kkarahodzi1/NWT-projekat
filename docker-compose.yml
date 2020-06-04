@@ -1,0 +1,118 @@
+version: '3'
+
+services:
+
+  eurekaserver:
+    build: ./service-registration-and-discovery-service
+    image: eureka-docker:latest
+    ports:
+      - "8761:8761"
+    networks:
+      - appnetwork
+  
+  gateway:
+   build: ./zuul-server
+   image: zuul-gateway:latest
+   depends_on:
+     - eurekaserver
+   ports:
+     - "8762:8762"
+   environment:
+     - SPRING_APPLICATION_NAME=zuul-server
+     - SPRING_PROFILES_ACTIVE=enableEureka
+     - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+     - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eurekaserver:8761/eureka
+   networks:
+     - appnetwork
+     
+  notifications:
+   build: ./Notifications
+   image: notifications-docker:latest
+   ports:
+     - "8081:8081"
+     - "8084:8084"
+     - "587:587"
+   depends_on:
+     - eurekaserver
+     - gateway
+   environment:
+     - SPRING_APPLICATION_NAME=notifications-service
+     - SPRING_PROFILES_ACTIVE=enableEureka
+     - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+     - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eurekaserver:8761/eureka
+   networks:
+     - appnetwork 
+     
+  userservice:
+   build: ./usercontrol
+   image: usercontrol-docker:latest
+   ports:
+     - "8082:8082"
+   depends_on:
+     - eurekaserver
+     - gateway
+     - notifications
+   environment:
+     - SPRING_APPLICATION_NAME=usercontrol-service
+     - SPRING_PROFILES_ACTIVE=enableEureka
+     - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+     - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eurekaserver:8761/eureka
+     - adresa=notifications
+   networks:
+     - appnetwork    
+     
+  rabbitmq:
+   image: rabbitmq:3-management
+   ports:
+     - "5672:5672"
+     - "15672:15672"
+   hostname: rabbitmq
+   environment:
+     - RABBITMQ_DEFAULT_USER=guest
+     - RABBITMQ_DEFAULT_PASS=guest
+   networks:
+     - appnetwork
+   
+  billingservice:
+   build: ./Billings
+   image: billings-docker:latest
+   ports:
+     - "8080:8080"
+   depends_on:
+     - eurekaserver
+     - gateway
+     - notifications
+     - rabbitmq
+   environment:
+     - SPRING_APPLICATION_NAME=billings-service
+     - SPRING_PROFILES_ACTIVE=enableEureka
+     - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+     - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eurekaserver:8761/eureka
+     - SPRING_RABBITMQ_HOST=rabbitmq
+     - adresa=notifications
+   networks:
+     - appnetwork
+     
+  storageservice:
+   build: ./storagecontrol
+   image: storage-docker:latest
+   ports:
+     - "8083:8083"
+   depends_on:
+     - eurekaserver
+     - gateway
+     - notifications
+     - rabbitmq
+   environment:
+     - SPRING_APPLICATION_NAME=storagecontrol-service
+     - SPRING_PROFILES_ACTIVE=enableEureka
+     - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+     - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eurekaserver:8761/eureka
+     - SPRING_RABBITMQ_HOST=rabbitmq
+     - adresa=notifications
+   networks:
+     - appnetwork
+
+networks:
+  appnetwork:
+    driver: bridge

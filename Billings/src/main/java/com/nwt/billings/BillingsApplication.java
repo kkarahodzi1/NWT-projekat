@@ -28,25 +28,6 @@ public class BillingsApplication {
     public static void main(String[] args) {
         SpringApplication.run(BillingsApplication.class, args);
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8084)
-                .usePlaintext()
-                .build();
-
-        AkcijaServiceGrpc.AkcijaServiceBlockingStub stub
-                = AkcijaServiceGrpc.newBlockingStub(channel);
-
-
-        AkcijaResponse akcijaResponse = stub.akcija(AkcijaRequest.newBuilder()
-                .setMikroservis("Billings")
-                .setTip(AkcijaRequest.Tip.CREATE)
-                .setResurs("Zakupnine")
-                .setOdgovor(AkcijaRequest.Odgovor.SUCCESS)
-                .build());
-
-        log.info(akcijaResponse.getOdgovor());
-
-        channel.shutdown();
-
     }
 
     @Bean

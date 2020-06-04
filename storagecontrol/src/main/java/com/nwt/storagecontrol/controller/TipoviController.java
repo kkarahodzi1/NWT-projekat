@@ -9,6 +9,9 @@ import org.nwt.notifications.AkcijaRequest;
 import org.nwt.notifications.AkcijaResponse;
 import org.nwt.notifications.AkcijaServiceGrpc;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,11 +27,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nwt.storagecontrol.model.Tipovi;
 
 @RestController
+@Configuration
+@PropertySource("classpath:application.properties")
 @RequestMapping("/api")
 public class TipoviController
 {
     @Autowired
     private TipoviService tipoviService;
+
+    @Autowired
+    private Environment env;
 
     TipoviController(TipoviService tipoviService)
     {
@@ -37,7 +45,7 @@ public class TipoviController
 
     public void LogAkcija(AkcijaRequest akcijaRequest)
     {
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8084)
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(env.getProperty("adresa"), 8084)
                 .usePlaintext()
                 .build();
 
