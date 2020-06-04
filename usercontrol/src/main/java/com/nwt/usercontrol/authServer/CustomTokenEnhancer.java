@@ -22,7 +22,11 @@ public class CustomTokenEnhancer implements TokenEnhancer {
                                      OAuth2Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         final Map<String, Object> additionalInfo = new HashMap<String, Object>();
-        additionalInfo.put("client", userRepository.findByMail(user.getUsername()));
+        com.nwt.usercontrol.model.User u = userRepository.findByMail(user.getUsername());
+        u.setPassword("[REDACTED]");
+        additionalInfo.put("client", u);
+
+        // additionalInfo.put("client", userRepository.findByMail(user.getUsername()));
 
         ((DefaultOAuth2AccessToken) accessToken)
                 .setAdditionalInformation(additionalInfo);
