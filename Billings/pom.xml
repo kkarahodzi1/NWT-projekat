@@ -17,6 +17,8 @@
     <properties>
         <java.version>11</java.version>
         <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
+        <maven.test.skip>true</maven.test.skip>
+        <start-class>com.nwt.billings.BillingsApplication</start-class>
     </properties>
 
     <dependencies>
@@ -166,5 +168,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+        <finalName>billings</finalName>
     </build>
 </project>

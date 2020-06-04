@@ -17,6 +17,8 @@
     <properties>
         <java.version>11</java.version>
         <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
+        <maven.test.skip>true</maven.test.skip>
+        <start-class>com.nwt.notifications.NotificationsApplication</start-class>
     </properties>
 
     <dependencies>
@@ -166,6 +168,7 @@
                 </executions>
             </plugin>
         </plugins>
+        <finalName>notifications</finalName>
     </build>
 
 </project>
