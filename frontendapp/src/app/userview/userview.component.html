@@ -1,6 +1,6 @@
 <div class=userview>
   <h1 class="naslov">
-    Dobrodošao, {{korisnik.ime}}!
+    Dobrodošao!
   </h1>
 
   <!-- todd howard
@@ -49,7 +49,37 @@
 
   <div *ngIf="nova">
     <div class="kontejner">
-      <h1>Nova!</h1>
+      <form class="form-signin" [formGroup]="formaDodaj" (ngSubmit)="dodajZakupninu(formaDodaj.value)">
+
+        <div class="row">
+          <div class="col-4">
+            <select class="custom-select" formControlName="skladiste" id="skladiste" (change)="onChange(formaDodaj.value)">
+              <option [value]="" selected disabled>Odaberi adresu skladista</option>
+              <option *ngFor="let adresa of adrese" [ngValue]="adresa">{{skladiste.adresa}}</option>
+            </select>
+          </div>
+            
+          <div class="col-4">
+            <select class="custom-select" formControlName="jedinica" id="jedinica">
+              <option [value]="" selected disabled>Odaberi Skladišnu Jedinicu</option>
+              <option *ngFor="let jed of sveJedinice" [ngValue]="jed">{{jed.broj}}</option>
+            </select>
+          </div>
+          
+          <div class="col-4">
+            <input type="date" min="1" id="datum" class="form-control" placeholder="Datum isteka rezervacije" required formControlName="datum">
+          </div>
+        </div>
+        
+        <div class="row">
+        <div class="col-4"></div>
+          <div class="col-4">
+            <button class="btn btn-lg btn-block btn-success" type="submit">Dodaj zakupninu</button>
+          </div>
+          <div class="col-4"></div>
+        </div>
+        
+      </form>
     </div>
   </div>
 

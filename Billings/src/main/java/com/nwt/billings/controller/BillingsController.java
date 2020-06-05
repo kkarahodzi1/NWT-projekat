@@ -129,12 +129,7 @@ public class BillingsController {
     }
 
     @PostMapping("/billings")
-    ResponseEntity<Zakupnina> kreirajZakupninu(@Valid @RequestBody Zakupnina zakupnina,
-                                               @RequestHeader("pozivaoc-id") Long korisnikId,
-                                               @RequestHeader("pozivaoc-rola") Boolean korisnikRola) {
-
-        // provjeri da li je proslijedjeni id korisnika i id pozivaoca isti ili da li je pozivaoc admin
-        ValidacijskiHelper.provjeriPristup(zakupnina.getKorisnikId(), korisnikId, korisnikRola);
+    ResponseEntity<Zakupnina> kreirajZakupninu(@Valid @RequestBody Zakupnina zakupnina) {
 
         ValidacijskiHelper.provjeriDatum(zakupnina.getDatumSklapanjaUgovora(), zakupnina.getDatumRaskidaUgovora());
 

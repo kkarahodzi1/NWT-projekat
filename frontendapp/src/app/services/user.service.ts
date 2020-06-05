@@ -100,6 +100,20 @@ constructor(private http: HttpClient) {
       return this.http.delete<any>(url);
     }
 
+    public addBilling(zakup: Zakupnina): Observable<Zakupnina> {
+      let url = 'http://localhost:8762/user/api/billings/';
+      url += JSON.parse(window.sessionStorage.getItem('token')).client.id;
+      const body ={
+        'korisnikId':zakup.korisnikId,
+        'jedinicaId':zakup.jedinicaId,
+        'skladisteId':zakup.skladisteId,
+        'datumSklapanjaUgovora':zakup.datum_sklapanja_ugovora,
+        'datumRaskidaUgovora':zakup.datum_raskida_ugovora,
+        'ukupnaCijena':zakup.ukupnaCijena
+      }
+      return this.http.post<Zakupnina>(url,body);
+    }
+
     // dodaje novog usera, ovo mozemo koristiti prilikom registracije novog korisnika
     public save(user: User) {
 
