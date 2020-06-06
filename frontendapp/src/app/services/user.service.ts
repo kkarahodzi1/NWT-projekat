@@ -49,6 +49,11 @@ constructor(private http: HttpClient) {
       return this.http.get<Tip[]>(url);
     }
 
+    public findType(id: number): Observable<Tip> {
+      let url = 'http://localhost:8762/storage/api/tipovi/' + id;
+      return this.http.get<Tip>(url);
+    }
+
     public findAllUnits(skladiste: Skladiste): Observable<SkladisnaJedinica[]> {
       let url = 'http://localhost:8762/storage/api/skladjed?skladiste=' + skladiste.id;
       return this.http.get<SkladisnaJedinica[]>(url);
@@ -101,8 +106,7 @@ constructor(private http: HttpClient) {
     }
 
     public addBilling(zakup: Zakupnina): Observable<Zakupnina> {
-      let url = 'http://localhost:8762/user/api/billings/';
-      url += JSON.parse(window.sessionStorage.getItem('token')).client.id;
+      let url = 'http://localhost:8762/billing/api/billings/';
       const body ={
         'korisnikId':zakup.korisnikId,
         'jedinicaId':zakup.jedinicaId,

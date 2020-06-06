@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { promise } from 'protractor';
 import { SkladisnaJedinica } from '../models/skladisnaJedinica';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Tip } from '../models/tip';
 
 
@@ -24,18 +24,15 @@ export class UserviewComponent implements OnInit {
   svaSkladista: Skladiste[];
   sveJedinice: SkladisnaJedinica[];
   zakup: Zakupnina;
-  formaDodaj;
-  sviTipovi:Tip[];
-
+  formaDodaj: FormGroup;
 
   constructor(private formBuilder: FormBuilder,private userService: UserService, private router: Router, private toastr: ToastrService) {
     this.svaSkladista = new Array<Skladiste>();
     this.sveZakupnine = new Array<Zakupnina>();
     this.sveJedinice = new Array<SkladisnaJedinica>();
-    this.sviTipovi = new Array<Tip>();
     
     this.formaDodaj = this.formBuilder.group({
-      skladise: [''],
+      skladiste: [''],
       jedinica: [''],
       datum: new Date()
     });
@@ -44,12 +41,12 @@ export class UserviewComponent implements OnInit {
   ngOnInit() {
     this.lista = false;
     this.nova = false;
-    // if (window.sessionStorage.getItem('token') == null) {
-    //   this.toastr.error('Korisnik nije prijavljen!', 'GREŠKA');
-    //   this.router.navigate(['']);
-    // } else if (JSON.parse(window.sessionStorage.getItem('token')).client.role === 1) {
-    //   this.router.navigate(['adminview']);
-    // }
+    if (window.sessionStorage.getItem('token') == null) {
+      this.toastr.error('Korisnik nije prijavljen!', 'GREŠKA');
+      this.router.navigate(['']);
+    } else if (JSON.parse(window.sessionStorage.getItem('token')).client.role === 1) {
+      this.router.navigate(['adminview']);
+    }
     this.korisnik = JSON.parse(window.sessionStorage.getItem('token')).client;
   }
 
@@ -85,7 +82,7 @@ export class UserviewComponent implements OnInit {
     error => {
       this.toastr.error('Greška pri učitavanju', 'GREŠKA');
     });
-
+    
   }
 
   onChange(skladData)
@@ -93,10 +90,11 @@ export class UserviewComponent implements OnInit {
     this.userService.findAllUnits(skladData.skladiste).subscribe(data=>
       {
         this.sveJedinice = data;
+        this.formaDodaj.controls['jedinica'].setValue(this.sveJedinice[0]);
       },
       error => {
         this.toastr.error('Greška pri učitavanju', 'GREŠKA');
-      });
+      });      
   }
 
   izlistaj() {
@@ -110,6 +108,7 @@ export class UserviewComponent implements OnInit {
   dodaj() {
     this.lista = false;
     this.nova = true;
+    this.dobaviSkladista();
   }
 
   dodajZakupninu(dodajZakup){
@@ -120,38 +119,43 @@ export class UserviewComponent implements OnInit {
       this.toastr.warning('Niste unijeli sve podatke', 'UPOZORENJE');
       return;
     }
-
-    this.userService.findAllTypes().subscribe(data => {
-      this.sviTipovi = data;
-    },
-    error => {
-      this.toastr.error('Greška pri učitavanju', 'GREŠKA');
-    });
-
-    const tip = this.sviTipovi.find(x => x.tip_id == dodajZakup.jedinica.tip);
+    
     const danas = new Date();
-    const brojMjeseci = (dodajZakup.datum.getTime() - danas.getTime())/(3600*24*30*1000);
-
-    if (brojMjeseci < 30){
+    const rezervacija = new Date(dodajZakup.datum)
+    const brojMjeseci = (rezervacija.getTime() - danas.getTime())/(3600*24*30*1000);
+    if (brojMjeseci < 1){
       this.toastr.warning('Datum isteka rezervacije mora biti barem 30 dana od danasnjeg datuma', 'UPOZORENJE');
       return;
     }
 
     const zakup = new Zakupnina();
-    zakup.datum_sklapanja_ugovora = danas.toLocaleString();
-    zakup.datum_raskida_ugovora = dodajZakup.datum;
+    zakup.datum_sklapanja_ugovora = this.dateAsYYYYMMDDHHNNSS(danas);
+    zakup.datum_raskida_ugovora = this.dateAsYYYYMMDDHHNNSS(rezervacija);
     zakup.skladisteId = dodajZakup.skladiste.id;
     zakup.jedinicaId = dodajZakup.jedinica.id;
-    zakup.korisnikId = 0;
-    zakup.ukupnaCijena = brojMjeseci*tip.cijena;
-    console.log(zakup);
+    zakup.korisnikId = this.korisnik.id;
+    zakup.ukupnaCijena = brojMjeseci*dodajZakup.jedinica.tip.cijena;
     
-    // this.userService.addBilling(zakup).subscribe(data => {
-    //   this.toastr.success('Uspješno dodana zakupnina', 'USPJEH');
-    // }, error => {
-    //   this.toastr.error('Zakupnina nije dodana', 'GREŠKA');
-    // });
+    this.userService.addBilling(zakup).subscribe(data => {
+      this.toastr.success('Uspješno dodana zakupnina', 'USPJEH');
+    }, error => {
+      this.toastr.error('Zakupnina nije dodana', 'GREŠKA');
+    });
 
     this.formaDodaj.reset();
+  }
+
+  dateAsYYYYMMDDHHNNSS(date): string {
+    return date.getFullYear()
+              + '-' + this.leftpad(date.getMonth() + 1, 2)
+              + '-' + this.leftpad(date.getDate(), 2)
+              + ' ' + this.leftpad(date.getHours(), 2)
+              + ':' + this.leftpad(date.getMinutes(), 2)
+              + ':' + this.leftpad(date.getSeconds(), 2);
+  }
+  
+  leftpad(val, resultLength = 2, leftpadChar = '0'): string {
+    return (String(leftpadChar).repeat(resultLength)
+          + String(val)).slice(String(val).length);
   }
 }

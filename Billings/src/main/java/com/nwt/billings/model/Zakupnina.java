@@ -1,5 +1,6 @@
 package com.nwt.billings.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.Entity;
@@ -28,8 +29,10 @@ public class Zakupnina {
     @NotNull
     private Long skladisteId;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @NotNull
     private Date datumSklapanjaUgovora;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @NotNull
     private Date datumRaskidaUgovora;
     private Date datumKreiranja;

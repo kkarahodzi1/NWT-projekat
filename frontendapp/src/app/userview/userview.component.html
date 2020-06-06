@@ -55,7 +55,7 @@
           <div class="col-4">
             <select class="custom-select" formControlName="skladiste" id="skladiste" (change)="onChange(formaDodaj.value)">
               <option [value]="" selected disabled>Odaberi adresu skladista</option>
-              <option *ngFor="let adresa of adrese" [ngValue]="adresa">{{skladiste.adresa}}</option>
+              <option *ngFor="let skl of svaSkladista" [ngValue]="skl">{{skl.adresa}}</option>
             </select>
           </div>
             
@@ -67,7 +67,7 @@
           </div>
           
           <div class="col-4">
-            <input type="date" min="1" id="datum" class="form-control" placeholder="Datum isteka rezervacije" required formControlName="datum">
+            <input type="date" id="datum" class="form-control" placeholder="Datum isteka rezervacije" required formControlName="datum">
           </div>
         </div>
         
