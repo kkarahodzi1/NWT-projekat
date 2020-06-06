@@ -17,7 +17,7 @@ public class Config {
 
     private String EXCHANGE = "storage-exchange";
 
-    private String ROUTING_KEY = "storages";
+    private String ROUTING_KEY = "storage";
 
     @Bean
     Queue queue()
