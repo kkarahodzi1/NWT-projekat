@@ -49,6 +49,11 @@ constructor(private http: HttpClient) {
       return this.http.get<Tip[]>(url);
     }
 
+    public findType(id: number): Observable<Tip> {
+      let url = 'http://localhost:8762/storage/api/tipovi/' + id;
+      return this.http.get<Tip>(url);
+    }
+
     public findAllUnits(skladiste: Skladiste): Observable<SkladisnaJedinica[]> {
       let url = 'http://localhost:8762/storage/api/skladjed?skladiste=' + skladiste.id;
       return this.http.get<SkladisnaJedinica[]>(url);
@@ -98,6 +103,19 @@ constructor(private http: HttpClient) {
     public deleteUnit(skladisnaJedinica: SkladisnaJedinica): Observable<any> {
       const url = 'http://localhost:8762/storage/api/skladjed/' + skladisnaJedinica.id;
       return this.http.delete<any>(url);
+    }
+
+    public addBilling(zakup: Zakupnina): Observable<Zakupnina> {
+      let url = 'http://localhost:8762/billing/api/billings/';
+      const body ={
+        'korisnikId':zakup.korisnikId,
+        'jedinicaId':zakup.jedinicaId,
+        'skladisteId':zakup.skladisteId,
+        'datumSklapanjaUgovora':zakup.datum_sklapanja_ugovora,
+        'datumRaskidaUgovora':zakup.datum_raskida_ugovora,
+        'ukupnaCijena':zakup.ukupnaCijena
+      }
+      return this.http.post<Zakupnina>(url,body);
     }
 
     // dodaje novog usera, ovo mozemo koristiti prilikom registracije novog korisnika

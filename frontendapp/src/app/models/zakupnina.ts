@@ -9,4 +9,5 @@ export class Zakupnina {
     datumModificiranja: string;
     datumBrisanja: string;
     obrisan: boolean;
+    ukupnaCijena: number;
 }

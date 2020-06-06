@@ -1,5 +1,5 @@
 export class User {
-    korisnikId: number;
+    id: number;
     ime: string;
     prezime: string;
     mail: string;

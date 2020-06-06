@@ -1,0 +1,15 @@
+.form-signin {
+    width: 100%;
+    max-width: 800px;
+    padding: 10px;
+    margin: 0 auto;
+  }
+
+  .form-signin{
+    height: auto;
+    font-size: 16px;
+  }
+
+  .custom-select{
+    margin-bottom: 1em;
+  }

@@ -138,17 +138,12 @@ public class BillingsController {
     }
 
     @PostMapping("/billings")
-    ResponseEntity<Zakupnina> kreirajZakupninu(@Valid @RequestBody Zakupnina zakupnina,
-                                               @RequestHeader("pozivaoc-id") Long korisnikId,
-                                               @RequestHeader("pozivaoc-rola") Boolean korisnikRola) {
-
-        // provjeri da li je proslijedjeni id korisnika i id pozivaoca isti ili da li je pozivaoc admin
-        ValidacijskiHelper.provjeriPristup(zakupnina.getKorisnikId(), korisnikId, korisnikRola);
+    ResponseEntity<Zakupnina> kreirajZakupninu(@Valid @RequestBody Zakupnina zakupnina, @RequestHeader (name="Authorization") String token) {
 
         ValidacijskiHelper.provjeriDatum(zakupnina.getDatumSklapanjaUgovora(), zakupnina.getDatumRaskidaUgovora());
 
         // dobavi usera
-        var userResponseEntity = userKlijent.getUser(zakupnina.getKorisnikId());
+        var userResponseEntity = userKlijent.getUser(zakupnina.getKorisnikId(),token);
         if (userResponseEntity.getStatusCode() != HttpStatus.OK) {
             throw new ResponseStatusException(
                     userResponseEntity.getStatusCode(), "Greska na user klijentu.");
