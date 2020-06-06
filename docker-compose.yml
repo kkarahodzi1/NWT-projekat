@@ -112,6 +112,14 @@ services:
      - adresa=notifications
    networks:
      - appnetwork
+     
+  frontend:
+   build: ./frontendapp
+   image: my-angular-app:v1
+   ports:
+     - "80:80"
+   networks:
+     - appnetwork
 
 networks:
   appnetwork:
