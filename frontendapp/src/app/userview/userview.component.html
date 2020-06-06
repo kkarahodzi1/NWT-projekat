@@ -36,7 +36,7 @@
           <td>{{ z.skladisteId }}</td>  <!-- adresa -->
           <td>{{ z.jedinicaId }}</td> <!-- jedinica -->
           <td>{{ z.jedinicaId }}</td> <!-- tip -->
-          <td>{{ z.ukupnaCijena }}</td> <!-- cijena -->
+          <td>{{ z.ukupnaCijena.toFixed(2) }}</td> <!-- cijena -->
           <td> <a (click)="obrisiZakupninu(z.id)">	&#x274C; </a></td> <!-- otkazi -->
         </tr>
       </tbody>
