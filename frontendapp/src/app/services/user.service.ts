@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'; // za HTTP requests
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'; 
 import { Observable } from 'rxjs';
 
-import { User } from '../models/user'; // importuje user klasu koju smo napravili
+import { User } from '../models/user'; 
 import { Zakupnina } from '../models/zakupnina';
 import { Skladiste } from '../models/skladiste';
 import {Tip} from '../models/tip';
@@ -11,17 +11,17 @@ import { SkladisnaJedinica } from '../models/skladisnaJedinica';
 
 @Injectable()
 export class UserService {
-    private usersUrl: string; // atribut koji cuva http path
-    private OAuthURL: string; // atribut koji cuva http path
-    private secureUrl: string; // atribut koji cuva http path
+    private usersUrl: string; 
+    private OAuthURL: string; 
+    private secureUrl: string; 
 
 
 constructor(private http: HttpClient) {
-    this.usersUrl = 'http://localhost:8762/user/api/users'; // promijeniti na onaj URL koji nas vodi do korijena user API-ja
+    this.usersUrl = 'http://localhost:8762/user/api/users'; 
     this.secureUrl = 'http://localhost:8762/user/api/secure/users/';
     this.OAuthURL = 'http://localhost:8762/user/oauth/token';
 }
-    // sada redamo metode koje hocemo da servis ima
+  
 
     // pronalazi sve zakupnine
     public findAllBillings(): Observable<Zakupnina[]> {
@@ -70,7 +70,7 @@ constructor(private http: HttpClient) {
         'brojJedinica': skladiste.broj_skladisnih_jedinica
       };
 
-      return this.http.post<Skladiste>(url,body, {headers});
+      return this.http.post<Skladiste>(url, body, {headers});
     }
 
     public addStorageUnit(tip: Tip, skladiste: Skladiste, broj: Number): Observable<any> {
@@ -85,9 +85,9 @@ constructor(private http: HttpClient) {
         'tip': tip.naziv
       };
 
-      console.log(body);
+  
 
-      return this.http.post<Skladiste>(url,body, {headers});
+      return this.http.post<Skladiste>(url, body, {headers});
     }
 
     public deleteStorage(skladiste: Skladiste): Observable<any> {
@@ -115,10 +115,10 @@ constructor(private http: HttpClient) {
         'datumRaskidaUgovora':zakup.datum_raskida_ugovora,
         'ukupnaCijena':zakup.ukupnaCijena
       }
-      return this.http.post<Zakupnina>(url,body);
+      return this.http.post<Zakupnina>(url, body);
     }
 
-    // dodaje novog usera, ovo mozemo koristiti prilikom registracije novog korisnika
+    // dodaje novog usera
     public save(user: User) {
 
 
@@ -133,7 +133,7 @@ constructor(private http: HttpClient) {
         return this.http.post<User>(this.usersUrl, body, {headers});
       }
 
-      // login pisati ovdje
+
       public login(user: User) {
 
 
@@ -151,19 +151,4 @@ constructor(private http: HttpClient) {
       }
 }
 
-/*
-ovaj service se sada moze importovati u .ts od neke komponente, pa se metode servisa pozivaju u metodama komponente, a metode komponente
-se vezu za stvari u HTML kodu komponente, npr.
-U .ts kod za komponentu za registraciju (koju treba kreirati) se moze dodati ovo:
-import { UserService } from '../services/user.service';
-import { User } from '../models/user';
 
-  pressRegistracija() {
-    this.userService.save(this.user).subscribe(result => NESTO STO RADIMO SA REZULTATOM);
-  }
-
-  a onda u html kod za registraciju, kada pravimo formu:
-  <form (ngSubmit)="pressRegistracija()" #userForm="ngForm"> znaci da se prilikom submit pozove metoda pressRegistracija koju smo napisali
-
-  Gotov primjer ovoga ima u aplikaciji angularclient/src/app/user-form
-*/

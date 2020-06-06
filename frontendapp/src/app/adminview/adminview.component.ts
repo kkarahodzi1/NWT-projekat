@@ -10,7 +10,7 @@ import { promise } from 'protractor';
 import { FormBuilder } from '@angular/forms';
 import { SkladisnaJedinica } from '../models/skladisnaJedinica';
 // import {MatMenuModule} from '@angular/material/menu';
-// ne da mi da ovo importujem, ali se svakako ne koristi
+
 
 @Component({
   selector: 'app-adminview',
